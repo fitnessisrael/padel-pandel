@@ -4,132 +4,164 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>פאדל פנדל</title>
-<meta name="theme-color" content="#070a08">
+<meta name="theme-color" content="#0a0c0a">
 <link rel="icon" href="logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#070a08;--card:#0f1510;--card2:#141c15;--lime:#b6f23a;--lime2:#8dc63f;--line:rgba(182,242,58,.16);--txt:#f2f5ee;--mut:#8a9a86;--red:#ff5b5b}
+:root{--bg:#0a0c0a;--card:#131614;--card2:#181c18;--lime:#c8e52f;--limeglow:rgba(200,229,47,.32);--line:rgba(255,255,255,.08);--limeline:rgba(200,229,47,.38);--txt:#f3f6ee;--mut:#8c9488;--red:#ff6161;--num:'Outfit','Rubik',sans-serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--txt);font-family:'Rubik',system-ui,sans-serif}
-body{min-height:100vh;padding-bottom:96px;background:radial-gradient(900px 500px at 80% -10%,rgba(141,198,63,.16),transparent 60%),radial-gradient(700px 400px at 0% 30%,rgba(60,120,255,.08),transparent 60%),var(--bg)}
-button{font-family:inherit;cursor:pointer;border:0;color:inherit}
-input,select{font-family:inherit;font-size:16px;color:var(--txt);background:#0b100c;border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;outline:none}
-input:focus,select:focus{border-color:var(--lime)}
-.num{font-family:'Orbitron','Rubik',sans-serif;direction:ltr;unicode-bidi:isolate}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-family:'Rubik',system-ui,sans-serif;overflow-x:hidden}
+body{min-height:100vh;padding-bottom:104px;background:radial-gradient(800px 420px at 100% -8%,rgba(200,229,47,.13),transparent 60%),radial-gradient(600px 380px at -5% 38%,rgba(120,170,40,.08),transparent 60%),var(--bg)}
+button{font-family:inherit;cursor:pointer;border:0;color:inherit;background:none}
+input,select{font-family:inherit;font-size:16px;color:var(--txt);background:#0d100d;border:1px solid var(--line);border-radius:16px;padding:0 16px;height:52px;width:100%;max-width:100%;min-width:0;outline:none;display:block;-webkit-appearance:none;appearance:none}
+input[type=date]{text-align:right;line-height:50px}
+input[type=date]::-webkit-date-and-time-value{text-align:right}
+input:focus,select:focus{border-color:var(--limeline);box-shadow:0 0 0 3px rgba(200,229,47,.08)}
+input[readonly]{color:var(--lime);background:#10140d;border-style:dashed}
+.ic{display:block;flex:none}
 .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
-.top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;max-width:1100px;margin:0 auto}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
-.brand img{width:40px;height:40px;border-radius:10px;object-fit:cover}
-.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(182,242,58,.1);border:1px solid var(--line);padding:8px 14px;border-radius:999px;font-weight:600;font-size:14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,#c9fb4a,#a5e02c);color:#0a1204;font-weight:800;font-size:17px;padding:15px 26px;border-radius:16px;box-shadow:0 8px 30px rgba(182,242,58,.28);transition:transform .15s}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px;max-width:1100px;margin:0 auto}
+.who{display:flex;align-items:center;gap:12px;min-width:0}
+.who b{display:block;font-size:17px;font-weight:700;line-height:1.2}
+.who small{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}
+.tbtns{display:flex;gap:8px}
+.ibtn{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.14);display:grid;place-items:center;color:#d9dfd2;background:rgba(255,255,255,.02)}
+.ibtn.lime{border-color:var(--limeline);color:var(--lime);box-shadow:0 0 18px rgba(200,229,47,.14)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--limeline);color:var(--lime);padding:11px 18px;border-radius:999px;font-weight:600;font-size:14px;box-shadow:0 0 18px rgba(200,229,47,.12)}
+.btn{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--lime);color:#10150a;font-weight:700;font-size:16px;padding:6px 22px 6px 6px;border-radius:999px;box-shadow:0 0 34px var(--limeglow);transition:transform .15s;text-decoration:none;min-width:150px}
 .btn:active{transform:scale(.97)}
-.btn.ghost{background:transparent;color:var(--lime);border:1.5px solid var(--lime);box-shadow:none}
-.btn.sm{padding:9px 16px;font-size:14px;border-radius:12px}
+.btn .go{width:46px;height:46px;border-radius:50%;border:2px solid #10150a;display:grid;place-items:center;background:#171c0e;color:var(--lime);font-style:normal}
+.btn.ghost{background:transparent;color:var(--lime);border:1.5px solid var(--lime);box-shadow:none;padding:4px 20px 4px 4px}
+.btn.ghost .go{border-color:var(--lime);background:transparent}
+.btn.sm{display:inline-flex;justify-content:center;gap:8px;padding:0 20px;height:44px;font-size:14px;min-width:0;box-shadow:0 0 22px rgba(200,229,47,.22)}
+.btn.sm.ghost{box-shadow:none;padding:0 18px}
 .btn.red{background:transparent;color:var(--red);border:1.5px solid var(--red);box-shadow:none}
-h2{font-size:22px;margin:30px 0 14px;font-weight:800;display:flex;align-items:center;justify-content:space-between}
-h2 small{font-size:13px;color:var(--mut);font-weight:500}
-.hero{position:relative;border-radius:28px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end;background:#000 url(hero1.jpg) center 30%/cover;border:1px solid var(--line)}
-.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,10,8,.25),rgba(7,10,8,.55) 45%,#070a08 98%)}
-.hero:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 4px);pointer-events:none}
-.hero .in{position:relative;padding:26px 22px;width:100%}
-.hero img.lg{width:150px;max-width:44%;border-radius:22px;box-shadow:0 0 50px rgba(182,242,58,.35);margin-bottom:14px}
-.hero h1{margin:0;font-size:clamp(34px,8vw,64px);font-weight:900;line-height:1.05}
-.hero h1 span{color:var(--lime);text-shadow:0 0 28px rgba(182,242,58,.5)}
-.hero p{color:#c4d0bf;margin:10px 0 20px;font-size:16px}
-.hero .row{display:flex;gap:12px;flex-wrap:wrap}
+.sh{display:flex;align-items:center;justify-content:space-between;margin:30px 0 14px}
+.sh h2{margin:0;font-size:21px;font-weight:700}
+.sh a,.sh span.more{color:var(--mut);font-size:14px;text-decoration:none}
+.sub{color:var(--mut);margin:-6px 0 14px;font-size:14px}
+.hero{position:relative;border-radius:30px;overflow:hidden;min-height:560px;display:flex;align-items:flex-end;background:#000 url(hero1.jpg) center 30%/cover;border:1px solid var(--line)}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,10,.2),rgba(10,12,10,.5) 40%,#0a0c0a 92%)}
+.hero .in{position:relative;padding:24px 22px;width:100%}
+.hero .lg{position:absolute;top:20px;right:20px;width:84px;border-radius:20px;box-shadow:0 0 40px var(--limeglow);border:1px solid var(--limeline)}
+.dash{display:flex;gap:6px;margin-bottom:18px}
+.dash i{width:26px;height:3.5px;border-radius:3px;background:rgba(255,255,255,.35)}
+.dash i.on{background:var(--lime);box-shadow:0 0 12px var(--limeglow)}
+.hero h1{margin:0;font-size:clamp(34px,8.4vw,58px);font-weight:800;line-height:1.08}
+.hero h1 span{color:var(--lime);text-shadow:0 0 30px var(--limeglow)}
+.hero p{color:#c7d0c1;margin:12px 0 22px;font-size:15.5px;line-height:1.5;max-width:420px}
+.hero .row{display:grid;gap:12px;max-width:420px}
 .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.chip{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}
-.chip b{display:block;font-size:28px;color:var(--lime);font-family:'Orbitron'}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 8px;text-align:center}
+.chip b{display:block;font-size:28px;color:var(--lime);font-family:var(--num);font-weight:700;text-shadow:0 0 18px rgba(200,229,47,.25)}
 .chip span{font-size:13px;color:var(--mut)}
 .card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;padding:16px}
 .grid{display:grid;gap:12px}
 .g2{grid-template-columns:repeat(2,1fr)}
-@media(min-width:760px){.g2{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr 1fr}}
-.avw{display:inline-block;filter:drop-shadow(0 0 10px rgba(182,242,58,.35));flex:none}
-.av{display:block;width:var(--s);height:calc(var(--s)*1.14);clip-path:polygon(50% 0,100% 24%,100% 76%,50% 100%,0 76%,0 24%);background:linear-gradient(160deg,var(--lime),#1d3d0c);padding:3px}
-.av>span{display:block;width:100%;height:100%;clip-path:polygon(50% 0,100% 24%,100% 76%,50% 100%,0 76%,0 24%);background:radial-gradient(circle at 50% 30%,#22331f,#0b110b);overflow:hidden}
+@media(min-width:760px){.g2{grid-template-columns:repeat(4,1fr)}.hero{min-height:520px}}
+.avr{display:inline-block;width:var(--s);height:var(--s);border-radius:50%;padding:2.5px;background:linear-gradient(150deg,var(--lime),#3b4d12);box-shadow:0 0 16px rgba(200,229,47,.3);flex:none}
+.avr>span{display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#1b211a}
+.avr img{width:100%;height:100%;object-fit:cover;display:block}
+.avr svg{width:100%;height:100%;display:block}
+.avw{display:inline-block;filter:drop-shadow(0 0 12px rgba(200,229,47,.4));flex:none}
+.av{display:block;width:var(--s);height:calc(var(--s)*1.14);clip-path:polygon(50% 0,100% 24%,100% 76%,50% 100%,0 76%,0 24%);background:linear-gradient(160deg,var(--lime),#2b3c0c);padding:3px}
+.av>span{display:block;width:100%;height:100%;clip-path:polygon(50% 0,100% 24%,100% 76%,50% 100%,0 76%,0 24%);background:radial-gradient(circle at 50% 30%,#26331f,#0c120b);overflow:hidden}
 .av img{width:100%;height:100%;object-fit:cover;display:block}
-.av svg{width:100%;height:100%;display:block;opacity:.9}
-.pcard{position:relative;background:linear-gradient(165deg,#1b2a18,#0d130d 70%);border:1px solid var(--line);border-radius:22px;padding:16px 10px 14px;text-align:center;cursor:pointer;transform-style:preserve-3d;transition:transform .12s ease-out,box-shadow .2s;overflow:hidden}
-.pcard:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(182,242,58,.22),transparent 55%);pointer-events:none}
-.pcard:hover{box-shadow:0 14px 40px rgba(182,242,58,.18)}
-.pcard .rk{position:absolute;top:10px;right:12px;font-family:'Orbitron';font-weight:800;color:var(--lime);font-size:13px;opacity:.9}
-.pcard .nm{font-weight:800;font-size:16px;margin-top:8px}
-.pcard .cr{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px;color:var(--lime);font-family:'Orbitron';font-weight:800;font-size:22px}
+.av svg{width:100%;height:100%;display:block}
+.pcard{position:relative;background:linear-gradient(165deg,#1a2217,#0f130f 72%);border:1px solid var(--line);border-radius:24px;padding:18px 10px 14px;text-align:center;cursor:pointer;transition:transform .12s ease-out,box-shadow .2s;overflow:hidden}
+.pcard:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(200,229,47,.2),transparent 55%);pointer-events:none}
+.pcard:hover{box-shadow:0 14px 40px rgba(200,229,47,.14)}
+.pcard .rk{position:absolute;top:12px;right:14px;font-family:var(--num);font-weight:700;color:var(--lime);font-size:13px}
+.pcard .nm{font-weight:700;font-size:16px;margin-top:8px}
+.pcard .cr{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px;color:var(--lime);font-family:var(--num);font-weight:700;font-size:24px;text-shadow:0 0 16px rgba(200,229,47,.3)}
 .pcard .wl{color:var(--mut);font-size:12px;margin-top:2px}
-.pcard.me{border-color:var(--lime)}
+.pcard.me{border-color:var(--limeline)}
 .podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:10px;align-items:end}
-.podium .pcard:nth-child(2){padding-top:24px;border-color:var(--lime);box-shadow:0 0 40px rgba(182,242,58,.2)}
-.row-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:var(--card);border:1px solid var(--line);cursor:pointer}
+.podium .pcard:nth-child(2){padding-top:26px;border-color:var(--limeline);box-shadow:0 0 40px rgba(200,229,47,.16)}
+.row-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:var(--card);border:1px solid var(--line)}
 .row-item+.row-item{margin-top:8px}
-.row-item .n{flex:1;font-weight:700}
-.row-item .n small{display:block;color:var(--mut);font-weight:400;font-size:12px}
-.rkn{width:26px;text-align:center;font-family:'Orbitron';color:var(--mut);font-weight:800}
-.crw{display:inline-flex;align-items:center;gap:5px;color:var(--lime);font-family:'Orbitron';font-weight:800;font-size:18px}
-.ev{display:block;cursor:pointer}
-.ev+.ev{margin-top:12px}
-.ev .d{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.ev .d b{font-size:19px}
-.ev .d small{color:var(--mut);display:block;margin-top:2px}
-.ev .avs{display:flex;margin-top:12px}
-.ev .avs .avw{margin-inline-end:-8px}
-.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(182,242,58,.12);color:var(--lime);border:1px solid var(--line)}
-.badge.final{background:var(--lime);color:#0a1204}
-.badge.semi{background:rgba(120,170,255,.14);color:#9cc0ff;border-color:rgba(120,170,255,.3)}
-.badge.third{background:rgba(255,170,80,.12);color:#ffb870;border-color:rgba(255,170,80,.3)}
-.match{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.row-item.click{cursor:pointer}
+.row-item .n{flex:1;font-weight:600;min-width:0}
+.row-item .n small{display:block;color:var(--mut);font-weight:400;font-size:12.5px;margin-top:2px}
+.rkn{width:24px;text-align:center;font-family:var(--num);color:var(--mut);font-weight:700}
+.crw{display:inline-flex;align-items:center;gap:6px;color:var(--lime);font-family:var(--num);font-weight:700;font-size:17px;background:rgba(200,229,47,.1);border:1px solid var(--limeline);padding:5px 12px;border-radius:999px}
+.upc{display:grid;grid-template-columns:1fr 118px;gap:14px;align-items:stretch;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px;text-decoration:none;color:inherit;cursor:pointer}
+.upc+.upc{margin-top:12px}
+.upc .l{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:4px 6px}
+.upc .k{color:var(--lime);font-size:13px;font-weight:600}
+.upc .d{font-size:18px;font-weight:700}
+.upc .s{color:var(--mut);font-size:13px;display:flex;align-items:center;gap:6px}
+.upc .im{border-radius:16px;background:#000 center/cover;min-height:100px}
+.upc .avs{display:flex;margin-top:6px}
+.upc .avs .avr{margin-inline-end:-10px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:rgba(200,229,47,.1);color:var(--lime);border:1px solid var(--limeline)}
+.badge.final{background:var(--lime);color:#10150a;border-color:var(--lime)}
+.badge.semi{background:rgba(120,170,255,.12);color:#9cc0ff;border-color:rgba(120,170,255,.3)}
+.badge.third{background:rgba(255,170,80,.1);color:#ffb870;border-color:rgba(255,170,80,.3)}
+.match{padding:14px;border-radius:22px;background:var(--card);border:1px solid var(--line);cursor:default}
+.match[data-act]{cursor:pointer}
 .match+.match{margin-top:10px}
-.team{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:13px;font-weight:600}
-.team .pr{display:flex;gap:4px}
+.mt{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--mut)}
+.vsr{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px}
+.team{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;font-size:13px;font-weight:600;position:relative}
+.team .pr{display:flex}
+.team .pr .avr+.avr{margin-inline-start:-14px}
+.team:not(.win) .avr{background:none;border:1.5px dashed #4a5146;box-shadow:none;padding:2px;opacity:.85}
 .team.win{color:var(--lime)}
-.team.win .avw{filter:drop-shadow(0 0 12px rgba(182,242,58,.7))}
-.score{font-family:'Orbitron';font-weight:900;font-size:26px;text-align:center;line-height:1}
-.score i{display:block;font-style:normal;font-size:10px;margin-bottom:6px}
-.mt{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px;color:var(--mut)}
+.team .wb{display:inline-flex}
+.mid{text-align:center;min-width:76px}
+.vs{font-family:var(--num);font-style:italic;font-weight:800;font-size:22px;color:var(--lime);text-shadow:0 0 18px var(--limeglow);line-height:1}
+.score{font-family:var(--num);font-weight:700;font-size:26px;direction:ltr;margin-top:6px}
 .tbl{width:100%;border-collapse:separate;border-spacing:0 8px}
 .tbl td{background:var(--card);padding:10px 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.tbl td:first-child{border-radius:0 14px 14px 0;border-right:1px solid var(--line)}
-.tbl td:last-child{border-radius:14px 0 0 14px;border-left:1px solid var(--line)}
-.tbl .p{display:flex;align-items:center;gap:10px;font-weight:700}
-.nav{position:fixed;bottom:max(14px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:6px;background:rgba(15,21,16,.88);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;z-index:20;box-shadow:0 10px 40px rgba(0,0,0,.6)}
-.nav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 16px;border-radius:16px;color:var(--mut);text-decoration:none;font-size:11px;font-weight:600;min-width:64px}
-.nav a span{font-size:20px;line-height:1}
-.nav a.on{background:var(--lime);color:#0a1204}
-.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
-.sheet{background:#0e140f;border:1px solid var(--line);border-radius:26px 26px 0 0;width:100%;max-width:560px;max-height:92vh;overflow:auto;padding:20px 18px calc(24px + env(safe-area-inset-bottom));animation:up .25s ease-out}
-@media(min-width:700px){.sheet-bg{align-items:center}.sheet{border-radius:26px}}
+.tbl td:first-child{border-radius:0 18px 18px 0;border-right:1px solid var(--line)}
+.tbl td:last-child{border-radius:18px 0 0 18px;border-left:1px solid var(--line)}
+.tbl .p{display:flex;align-items:center;gap:10px;font-weight:600}
+.nav{position:fixed;bottom:max(14px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:8px;padding:8px;background:rgba(18,21,18,.92);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:999px;z-index:20;box-shadow:0 12px 40px rgba(0,0,0,.6),0 0 30px rgba(200,229,47,.07)}
+.nav a{display:flex;align-items:center;gap:8px;height:50px;min-width:50px;justify-content:center;border-radius:999px;border:1.5px solid rgba(255,255,255,.14);color:#cfd6c8;text-decoration:none;font-size:13.5px;font-weight:600;padding:0 14px}
+.nav a span{display:none}
+.nav a.on{border-color:var(--limeline);background:rgba(200,229,47,.1);color:var(--lime);box-shadow:inset 0 0 18px rgba(200,229,47,.12)}
+.nav a.on span{display:inline}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
+.sheet{background:#0e110e;border:1px solid var(--line);border-radius:28px 28px 0 0;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;overflow-x:hidden;padding:20px 18px calc(24px + env(safe-area-inset-bottom));animation:up .25s ease-out}
+@media(min-width:700px){.sheet-bg{align-items:center}.sheet{border-radius:28px}}
 @keyframes up{from{transform:translateY(40px);opacity:0}}
 @keyframes fade{from{opacity:0}}
-.sheet h3{margin:0 0 14px;font-size:21px;font-weight:800}
-.lbl{display:block;font-size:13px;color:var(--mut);margin:14px 0 6px}
+.sheet h3{margin:0 0 14px;font-size:21px;font-weight:700}
+.lbl{display:block;font-size:13px;color:var(--mut);margin:16px 0 7px}
 .pick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.pk{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:10px 4px;text-align:center;font-size:12px;font-weight:600;position:relative}
-.pk.on{border-color:var(--lime);background:rgba(182,242,58,.1)}
-.pk.on:after{content:"✓";position:absolute;top:4px;left:6px;color:var(--lime);font-weight:900}
-.pk .avw{display:block;margin:0 auto 4px}
+.pk{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:10px 4px;text-align:center;font-size:12px;font-weight:600;position:relative;cursor:pointer}
+.pk.on{border-color:var(--limeline);background:rgba(200,229,47,.08)}
+.pk .ck{position:absolute;top:6px;left:6px;width:18px;height:18px;border-radius:50%;background:var(--lime);color:#10150a;display:grid;place-items:center}
+.pk .avr{display:block;margin:0 auto 5px}
 .sc{display:flex;align-items:center;justify-content:center;gap:10px}
-.sc button{width:46px;height:46px;border-radius:14px;background:var(--card2);border:1px solid var(--line);font-size:24px;font-weight:800;color:var(--lime)}
-.sc output{font-family:'Orbitron';font-size:34px;font-weight:900;min-width:46px;text-align:center}
+.sc button{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.16);display:grid;place-items:center;color:var(--lime)}
+.sc output{font-family:var(--num);font-size:34px;font-weight:700;min-width:46px;text-align:center}
 .tb{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tb>div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px}
-.tb h4{margin:0 0 8px;font-size:13px;color:var(--lime)}
+.tb>div{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px}
+.tb h4{margin:0 0 8px;font-size:13px;color:var(--lime);font-weight:600}
 .tb select+select{margin-top:8px}
 .chs{display:flex;gap:8px;flex-wrap:wrap}
-.chs button{padding:9px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:14px}
-.chs button.on{background:var(--lime);color:#0a1204}
+.chs button{padding:10px 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.14);font-weight:600;font-size:14px}
+.chs button.on{background:var(--lime);color:#10150a;border-color:var(--lime)}
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;border:1px solid var(--line);cursor:pointer}
-.empty{color:var(--mut);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:18px}
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--lime);color:#0a1204;font-weight:700;padding:11px 20px;border-radius:14px;z-index:99;box-shadow:0 8px 30px rgba(0,0,0,.5);animation:fade .2s}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;border:1px solid var(--line);cursor:pointer}
+.empty{color:var(--mut);text-align:center;padding:26px;border:1px dashed rgba(255,255,255,.14);border-radius:20px}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--lime);color:#10150a;font-weight:700;padding:12px 22px;border-radius:999px;z-index:99;box-shadow:0 8px 30px rgba(0,0,0,.5),0 0 30px var(--limeglow);animation:fade .2s;white-space:nowrap}
 .toast.err{background:var(--red);color:#fff}
-.big3d{perspective:700px;display:flex;justify-content:center;padding:10px 0}
-.big3d .tilt{transition:transform .12s}
-.ctl{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.big3d{display:flex;justify-content:center;padding:6px 0}
+.ctl{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
 .loader{padding:80px 0;text-align:center;color:var(--mut)}
-.crown-anim{animation:pop 1.6s ease-in-out infinite}
-@keyframes pop{50%{transform:translateY(-3px) scale(1.08)}}
+.adj{margin-top:18px;border:1px solid var(--limeline);border-radius:22px;padding:14px;background:rgba(200,229,47,.04)}
+.adj b{display:block;font-size:15px}.adj small{display:block;color:var(--mut);margin:3px 0 12px;font-size:12.5px}
+.crop-bg{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:16px}
+.crop{background:#0e110e;border:1px solid var(--line);border-radius:28px;padding:18px;width:100%;max-width:360px}
+.cvw{position:relative;width:300px;height:300px;margin:6px auto 14px;border-radius:20px;overflow:hidden;touch-action:none;background:#000;max-width:100%}
+.cvw canvas{display:block;width:100%;height:100%}
+.cvw:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 400px rgba(0,0,0,.62);border:2px solid var(--lime);pointer-events:none}
+input[type=range]{padding:0;height:32px;accent-color:var(--lime);border:0;background:none}
 </style>
 </head>
 <body>
@@ -137,29 +169,54 @@ h2 small{font-size:13px;color:var(--mut);font-weight:500}
 <main id="app" class="wrap"><div class="loader">טוען...</div></main>
 <nav class="nav" id="nav"></nav>
 <div id="sheet"></div>
+<div id="cropl"></div>
 <script>
 const SB='https://xdtcsapcgamlabdslzby.supabase.co';
 const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkdGNzYXBjZ2FtbGFiZHNsemJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMjg3MjMsImV4cCI6MjEwODcwNDcyM30.lacZlgoMkE3fUhmv-PrBtWAC-tu6rLg-vcLc42SzxUw';
 const H={apikey:KEY,Authorization:'Bearer '+KEY};
-const ERR={bad_password:'סיסמה לא נכונה',not_logged_in:'צריך להתחבר מחדש',not_allowed:'אין הרשאה לזה',password_taken:'הסיסמה הזאת כבר תפוסה, בחר אחרת',too_short:'הסיסמה קצרה מדי',players_must_differ:'צריך 4 שחקנים שונים',no_draw:'אין תיקו, חייב להיות מנצח',name_required:'חסר שם'};
+const ERR={bad_password:'סיסמה לא נכונה',not_logged_in:'צריך להתחבר מחדש',not_allowed:'אין הרשאה לזה',password_taken:'הסיסמה הזאת כבר תפוסה, בחר אחרת',too_short:'הסיסמה קצרה מדי',players_must_differ:'צריך 4 שחקנים שונים',no_draw:'אין תיקו, חייב להיות מנצח',name_required:'חסר שם',bad_phone:'מספר טלפון לא תקין'};
 const STAGES={game:'משחק',semi:'חצי גמר',final:'גמר',third:'מקום 3'};
-const S={players:[],evenings:[],ep:[],matches:[],me:null,token:localStorage.getItem('pp_token')};
+const S={players:[],evenings:[],ep:[],matches:[],adj:[],me:null,token:localStorage.getItem('pp_token'),contacts:[]};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const SIL='<svg viewBox="0 0 100 100"><circle cx="50" cy="38" r="17" fill="#2d422b"/><path d="M14 104c2-28 18-40 36-40s34 12 36 40z" fill="#2d422b"/></svg>';
-const crown=(s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="#b6f23a"><path d="M3 18h18l1.5-10-5.2 4L12 4 6.7 12 1.5 8 3 18zm0 2h18v2H3z"/></svg>`;
+const SIL='<svg viewBox="0 0 100 100"><circle cx="50" cy="38" r="17" fill="#34462f"/><path d="M14 104c2-28 18-40 36-40s34 12 36 40z" fill="#34462f"/></svg>';
+const I={
+ home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+ calendar:'<rect x="3" y="4.5" width="18" height="16" rx="3.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/>',
+ trophy:'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a1 1 0 0 0-1 1c0 2.2 1.6 3.8 4 4M16 6h3a1 1 0 0 1 1 1c0 2.2-1.6 3.8-4 4M12 13v4M8.5 20h7M10 17h4"/>',
+ users:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c.4-3.4 3-5.3 6-5.3s5.6 1.9 6 5.3"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 14.2c2 .3 3.2 1.8 3.5 4"/>',
+ key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2.5 2.5M14 9l2 2"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',minus:'<path d="M5 12h14"/>',
+ pin:'<path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ edit:'<path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17z"/><path d="M14.5 7.5l3 3"/>',
+ trash:'<path d="M4 7h16M9 7V4h6v3M6.5 7l1 13h9l1-13M10 11v5M14 11v5"/>',
+ whatsapp:'<path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.3z"/><path d="M9.2 8.8c.3 2.5 2.6 4.8 5.2 5.3l1.2-1.2-1.9-1-.9.7c-.9-.4-1.7-1.2-2.1-2.1l.7-.9-1-1.9z"/>',
+ camera:'<path d="M4 8h3l1.5-2.5h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/>',
+ up:'<path d="M7 17L17 7M9 7h8v8"/>',
+ close:'<path d="M6 6l12 12M18 6L6 18"/>',
+ shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+ phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>',
+ ball:'<circle cx="12" cy="12" r="9"/><path d="M4 9c4 0 8 2 9 6M20 15c-4 0-8-2-9-6"/>',
+ logout:'<path d="M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5M15 8l4 4-4 4M19 12H9"/>'
+};
+const ic=(n,s=20)=>`<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
+const crown=(s=18)=>`<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18l1.5-10-5.2 4L12 4 6.7 12 1.5 8 3 18zm0 2h18v2H3z"/></svg>`;
+const B=(t,a,c='')=>`<button class="btn ${c}" ${a}><span>${t}</span><i class="go">${ic('up',20)}</i></button>`;
+const b=(t,a,c='')=>`<button class="btn sm ${c}" ${a}>${t}</button>`;
+const fn=p=>String(p.name||'').split(' ')[0];
 
 async function rest(p){const r=await fetch(SB+'/rest/v1/'+p,{headers:H});if(!r.ok)throw new Error('load');return r.json()}
-async function rpc(fn,a){
-  const r=await fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',headers:{...H,'Content-Type':'application/json'},body:JSON.stringify(a)});
+async function rpc(f,a){
+  const r=await fetch(SB+'/rest/v1/rpc/'+f,{method:'POST',headers:{...H,'Content-Type':'application/json'},body:JSON.stringify(a)});
   const t=await r.text();let j;try{j=t?JSON.parse(t):null}catch{j=null}
   if(!r.ok){const m=(j&&j.message)||'';if(m==='not_logged_in'){logout(true)}throw new Error(ERR[m]||'משהו השתבש, נסה שוב')}
   return j;
 }
-function toast(m,err){const e=document.createElement('div');e.className='toast'+(err?' err':'');e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),2600)}
+function toast(m,err){const e=document.createElement('div');e.className='toast'+(err?' err':'');e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
 async function loadAll(){
-  const [p,e,ep,m]=await Promise.all([rest('padel_players?select=id,name,photo,is_admin,sort&order=sort,created_at'),rest('padel_evenings?select=*&order=played_on.desc,created_at.desc'),rest('padel_evening_players?select=*'),rest('padel_matches?select=*&order=seq')]);
-  Object.assign(S,{players:p,evenings:e,ep,matches:m});
+  const [p,e,ep,m,a]=await Promise.all([rest('padel_players?select=id,name,photo,is_admin,sort&order=sort,created_at'),rest('padel_evenings?select=*&order=played_on.desc,created_at.desc'),rest('padel_evening_players?select=*'),rest('padel_matches?select=*&order=seq'),rest('padel_adjust?select=*').catch(()=>[])]);
+  Object.assign(S,{players:p,evenings:e,ep,matches:m,adj:a});
 }
 async function initSession(){
   if(!S.token)return;
@@ -168,13 +225,13 @@ async function initSession(){
 function logout(silent){S.token=null;S.me=null;localStorage.removeItem('pp_token');if(!silent){toast('התנתקת');route()}else renderTop()}
 const P=id=>S.players.find(p=>p.id===id)||{id,name:'?',photo:null};
 const me=()=>S.me?P(S.me.id):null;
-const canEdit=by=>S.me&&(S.me.admin||by===S.me.id);
 
 function stats(ms){
   const o={};const t=id=>o[id]||(o[id]={w:0,l:0});
   for(const m of ms){const aw=m.score_a>m.score_b;
     for(const id of [m.a1,m.a2])aw?t(id).w++:t(id).l++;
     for(const id of [m.b1,m.b2])aw?t(id).l++:t(id).w++}
+  if(ms===S.matches)for(const a of S.adj){const x=t(a.player_id);x.w=Math.max(0,x.w+a.w);x.l=Math.max(0,x.l+a.l)}
   return o;
 }
 function ranked(ms){
@@ -187,80 +244,92 @@ function fmt(d,long){const x=new Date(d+'T12:00:00');
   const dd=String(x.getDate()).padStart(2,'0')+'.'+String(x.getMonth()+1).padStart(2,'0')+'.'+String(x.getFullYear()).slice(2);
   return long?x.toLocaleDateString('he-IL',{weekday:'long'})+' · '+dd:dd}
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
-const av=(p,s=64)=>`<span class="avw" style="--s:${s}px"><span class="av"><span>${p.photo?`<img src="${p.photo}" alt="">`:SIL}</span></span></span>`;
-const pcard=(r,i)=>`<div class="pcard tilt ${S.me&&S.me.id===r.p.id?'me':''}" data-act="player" data-id="${r.p.id}"><div class="rk">#${i+1}</div>${av(r.p,84)}<div class="nm">${esc(r.p.name)}</div><div class="cr crown-anim">${crown(20)}<span>${r.w}</span></div><div class="wl">${r.w} ניצחונות · ${r.l} הפסדים</div></div>`;
+const av=(p,s=56)=>`<span class="avr" style="--s:${s}px"><span>${p.photo?`<img src="${p.photo}" alt="">`:SIL}</span></span>`;
+const avx=(p,s=64)=>`<span class="avw" style="--s:${s}px"><span class="av"><span>${p.photo?`<img src="${p.photo}" alt="">`:SIL}</span></span></span>`;
+const pcard=(r,i)=>`<div class="pcard tilt ${S.me&&S.me.id===r.p.id?'me':''}" data-act="player" data-id="${r.p.id}"><div class="rk">#${i+1}</div>${avx(r.p,84)}<div class="nm">${esc(r.p.name)}</div><div class="cr">${crown(20)}<span>${r.w}</span></div><div class="wl">${r.w} ניצחונות · ${r.l} הפסדים</div></div>`;
 const evPlayers=id=>S.ep.filter(x=>x.evening_id===id).map(x=>P(x.player_id));
 const evMatches=id=>S.matches.filter(m=>m.evening_id===id);
+const IM=['hero2.jpg','shadow.jpg','ball.jpg'];
 
-/* ---------- top & nav ---------- */
 function renderTop(){
   const m=me();
-  $('#top').innerHTML=`<div class="brand"><img src="logo.jpg" alt=""><span>פאדל פנדל</span></div>`+
-   (m&&S.me?`<button class="pill" data-act="player" data-id="${m.id}">${av(m,26)}<span>${esc(m.name.split(' ')[0])}</span></button>`:`<button class="pill" data-act="login">🔑 כניסה</button>`);
+  $('#top').innerHTML=(m&&S.me?`<div class="who" data-act="player" data-id="${m.id}" style="cursor:pointer">${av(m,50)}<div><b>שלום ${esc(fn(m))}</b><small>פאדל פנדל</small></div></div>`
+   :`<div class="who"><img src="logo.jpg" alt="" style="width:46px;height:46px;border-radius:14px"><div><b>פאדל פנדל</b><small>חברים. רשת. משחק.</small></div></div>`)+
+   `<div class="tbtns">${S.me&&S.me.admin?`<a class="ibtn lime" href="#/admin" aria-label="ניהול">${ic('shield',22)}</a>`:''}${S.me?'':`<button class="pill" data-act="login">${ic('key',18)}כניסה</button>`}</div>`;
   const r=(location.hash.replace('#/','')||'home').split('/')[0];
-  const n=[['home','🏠','בית'],['evenings','📅','ערבים'],['ranking','🏆','דירוג'],['players','👥','שחקנים']];
-  $('#nav').innerHTML=n.map(([k,i,t])=>`<a href="#/${k==='home'?'':k}" class="${(r===k||(k==='evenings'&&r==='evening')||(k==='home'&&r===''))?'on':''}"><span>${i}</span>${t}</a>`).join('');
+  const n=[['home','home','בית'],['evenings','calendar','ימי משחק'],['ranking','trophy','דירוג'],['players','users','שחקנים']];
+  $('#nav').innerHTML=n.map(([k,i,t])=>`<a href="#/${k==='home'?'':k}" class="${(r===k||(k==='evenings'&&r==='evening')||(k==='home'&&r===''))?'on':''}" aria-label="${t}">${ic(i,22)}<span>${t}</span></a>`).join('');
 }
 
-/* ---------- views ---------- */
 function vHome(){
   const rk=ranked(S.matches),last=S.evenings[0];
-  const gm=S.matches.length;
-  return `<section class="hero"><div class="in"><img class="lg" src="logo.jpg" alt="פאדל פנדל">
-   <h1>פאדל <span>פנדל</span></h1><p>חברים. רשת. משחק.</p>
-   <div class="row"><button class="btn" data-act="new">🎾 פתח משחק</button><a class="btn ghost" href="#/ranking">🏆 הדירוג</a></div></div></section>
-   <div class="chips"><div class="chip"><b>${S.evenings.length}</b><span>ערבים</span></div><div class="chip"><b>${gm}</b><span>משחקים</span></div><div class="chip"><b>${S.players.length}</b><span>שחקנים</span></div></div>
-   ${rk.length?`<h2>👑 המלך של הקבוצה<small><a href="#/ranking" style="color:var(--lime)">לדירוג המלא</a></small></h2><div class="podium">${[1,0,2].map(i=>rk[i]?pcard(rk[i],i):'<div></div>').join('')}</div>`:''}
-   ${last?`<h2>הערב האחרון<small><a href="#/evenings" style="color:var(--lime)">כל הערבים</a></small></h2>${evCard(last)}`:''}`;
+  return `<section class="hero"><img class="lg" src="logo.jpg" alt="פאדל פנדל"><div class="in"><div class="dash"><i></i><i></i><i class="on"></i></div>
+   <h1>ברוכים הבאים<br>ל<span>פאדל פנדל</span></h1><p>חברים. רשת. משחק. עוקבים אחרי כל ניצחון, כל כתר וכל יום משחק של החבר'ה.</p>
+   <div class="row">${B('פתח משחק','data-act="new"')}<a href="#/ranking" style="text-decoration:none">${B('דירוג המובילים','tabindex="-1" style="width:100%"','ghost')}</a></div></div></section>
+   <div class="chips"><div class="chip"><b>${S.evenings.length}</b><span>ימי משחק</span></div><div class="chip"><b>${S.matches.length}</b><span>משחקים</span></div><div class="chip"><b>${S.players.length}</b><span>שחקנים</span></div></div>
+   ${rk.length?`<div class="sh"><h2>דירוג המובילים</h2><a href="#/ranking">הכל</a></div><div class="podium">${[1,0,2].map(i=>rk[i]?pcard(rk[i],i):'<div></div>').join('')}</div>`:''}
+   ${last?`<div class="sh"><h2>יום המשחק האחרון</h2><a href="#/evenings">הכל</a></div>${evCard(last,0)}`:''}`;
 }
-function evCard(e){
+function evCard(e,i){
   const ms=evMatches(e.id),r=ranked(ms)[0],pl=evPlayers(e.id);
-  return `<a class="card ev" href="#/evening/${e.id}" style="text-decoration:none;color:inherit"><div class="d"><div><b>${fmt(e.played_on,true)}</b><small>📍 ${esc(e.location||'ללא מיקום')} · ${ms.length} משחקים</small></div>${r?`<span class="crw">${crown(18)}${r.w}</span>`:''}</div>
-   ${r?`<div style="margin-top:10px;font-size:14px;color:var(--mut)">מלך הערב: <b style="color:var(--lime)">${esc(r.p.name)}</b></div>`:''}
-   <div class="avs">${pl.slice(0,8).map(p=>av(p,38)).join('')}</div></a>`;
+  return `<a class="upc" href="#/evening/${e.id}"><div class="l"><span class="k">${r?'מלך היום: '+esc(fn(r.p))+' · '+r.w+' כתרים':'יום משחק'}</span><span class="d">${fmt(e.played_on,true)}</span><span class="s">${ic('pin',15)}${esc(e.location||'ללא מיקום')} · ${ms.length} משחקים</span><div class="avs">${pl.slice(0,6).map(p=>av(p,30)).join('')}</div></div><div class="im" style="background-image:url(${IM[i%IM.length]})"></div></a>`;
 }
 function vEvenings(){
-  return `<h2>הערבים שלנו<button class="btn sm" data-act="new">+ ערב חדש</button></h2>`+(S.evenings.length?S.evenings.map(evCard).join(''):'<div class="empty">עוד אין ערבים. לחצו על "ערב חדש"</div>');
+  return `<div class="sh"><h2>ימי המשחק</h2>${b(ic('plus',16)+'יום משחק חדש','data-act="new"')}</div>`+(S.evenings.length?S.evenings.map(evCard).join(''):'<div class="empty">עוד אין ימי משחק. לחצו על "יום משחק חדש"</div>');
 }
 function vRanking(){
   const rk=ranked(S.matches);
-  return `<h2>🏆 הדירוג הכללי<small>כל ניצחון = כתר</small></h2>
+  return `<div class="sh"><h2>דירוג המובילים</h2><span class="more">כל ניצחון = כתר</span></div>
    ${rk.length>=3?`<div class="podium">${[1,0,2].map(i=>pcard(rk[i],i)).join('')}</div>`:''}
-   <div style="margin-top:16px">${rk.map((r,i)=>`<div class="row-item" data-act="player" data-id="${r.p.id}"><span class="rkn">${i+1}</span>${av(r.p,40)}<div class="n">${esc(r.p.name)}<small>${r.w} ניצחונות · ${r.l} הפסדים · ${pct(r.w,r.l)}%</small></div><span class="crw">${crown(18)}${r.w}</span></div>`).join('')}</div>`;
+   <div style="margin-top:16px">${rk.map((r,i)=>`<div class="row-item click" data-act="player" data-id="${r.p.id}"><span class="rkn">${i+1}</span>${av(r.p,46)}<div class="n">${esc(r.p.name)}<small>${r.w} ניצחונות · ${r.l} הפסדים · ${pct(r.w,r.l)}%</small></div><span class="crw">${crown(16)}${r.w}</span></div>`).join('')}</div>`;
 }
 function vPlayers(){
   const rk=ranked(S.matches);
-  return `<h2>השחקנים<button class="btn sm" data-act="addplayer">+ שחקן</button></h2><div class="grid g2">${rk.map((r,i)=>pcard(r,i)).join('')}</div>`;
+  return `<div class="sh"><h2>השחקנים</h2><div class="tbtns">${S.me&&S.me.admin?`<a class="btn sm ghost" href="#/admin">${ic('whatsapp',16)}שליחת גישה</a>`:''}${b(ic('plus',16)+'שחקן','data-act="addplayer"')}</div></div><div class="grid g2">${rk.map((r,i)=>pcard(r,i)).join('')}</div>`;
 }
 function matchCard(m){
   const aw=m.score_a>m.score_b;
-  const t=(a,b,w)=>`<div class="team ${w?'win':''}"><div class="pr">${av(P(a),44)}${av(P(b),44)}</div>${esc(P(a).name.split(' ')[0])} + ${esc(P(b).name.split(' ')[0])}${w?' '+crown(14):''}</div>`;
-  return `<div class="match" ${canEdit(m.created_by)?`data-act="editmatch" data-id="${m.id}" style="cursor:pointer"`:''}>${t(m.a1,m.a2,aw)}<div class="score"><i><span class="badge ${m.stage}">${STAGES[m.stage]}</span></i>${m.score_a}:${m.score_b}</div>${t(m.b1,m.b2,!aw)}</div>`;
+  const side=(a,c,w)=>`<div class="team ${w?'win':''}"><div class="pr">${av(P(a),46)}${av(P(c),46)}</div><div>${esc(fn(P(a)))} + ${esc(fn(P(c)))}</div>${w?`<span class="wb">${crown(14)}</span>`:''}</div>`;
+  return `<div class="match" ${S.me?`data-act="editmatch" data-id="${m.id}"`:''}><div class="mt"><span class="badge ${m.stage}">${STAGES[m.stage]}</span>${S.me?ic('edit',16):''}</div><div class="vsr">${side(m.a1,m.a2,aw)}<div class="mid"><div class="vs">V/S</div><div class="score">${m.score_b}:${m.score_a}</div></div>${side(m.b1,m.b2,!aw)}</div></div>`;
 }
 async function vEvening(id){
-  const e=S.evenings.find(x=>x.id===id);if(!e)return '<div class="empty">הערב לא נמצא</div>';
+  const e=S.evenings.find(x=>x.id===id);if(!e)return '<div class="empty">היום המשחק לא נמצא</div>';
   const ms=evMatches(id),rk=ranked(ms);
-  const ed=canEdit(e.created_by);
   setTimeout(()=>loadPhotos(id),0);
-  return `<h2 style="margin-bottom:4px"><span>${fmt(e.played_on,true)}</span></h2><div style="color:var(--mut)">📍 ${esc(e.location||'ללא מיקום')}</div>
-   <div class="ctl"><button class="btn sm" data-act="addmatch" data-id="${id}">+ תוצאה חדשה</button>${ed?`<button class="btn sm ghost" data-act="editev" data-id="${id}">עריכת הערב</button>`:''}</div>
-   <h2>טבלת הערב</h2>
-   ${rk.length?`<table class="tbl">${rk.map((r,i)=>`<tr data-act="player" data-id="${r.p.id}" style="cursor:pointer"><td style="width:30px" class="rkn">${i+1}</td><td><div class="p">${av(r.p,36)}${esc(r.p.name)}</div></td><td style="text-align:center;color:var(--mut);font-size:13px">${r.w}-${r.l}</td><td style="width:70px"><span class="crw">${crown(16)}${r.w}</span></td></tr>`).join('')}</table>`:'<div class="empty">עוד אין תוצאות בערב הזה</div>'}
-   <h2>המשחקים<small>${ms.length}</small></h2>${ms.length?ms.map(matchCard).join(''):'<div class="empty">לחצו על "תוצאה חדשה" כדי להוסיף משחק</div>'}
-   <h2>תמונות מהערב<button class="btn sm ghost" data-act="addphoto" data-id="${id}">+ תמונה</button></h2><div id="gal" class="gal"></div>`;
+  return `<div class="sh" style="margin-bottom:6px"><h2>${fmt(e.played_on,true)}</h2></div><div class="s" style="color:var(--mut);display:flex;gap:6px;align-items:center">${ic('pin',16)}${esc(e.location||'ללא מיקום')}</div>
+   <div class="ctl">${b(ic('plus',16)+'תוצאה חדשה',`data-act="addmatch" data-id="${id}"`)}${S.me?b(ic('edit',16)+'עריכת יום המשחק',`data-act="editev" data-id="${id}"`,'ghost'):''}</div>
+   <div class="sh"><h2>טבלת היום</h2></div>
+   ${rk.length?`<table class="tbl">${rk.map((r,i)=>`<tr data-act="player" data-id="${r.p.id}" style="cursor:pointer"><td style="width:30px" class="rkn">${i+1}</td><td><div class="p">${av(r.p,38)}${esc(r.p.name)}</div></td><td style="text-align:center;color:var(--mut);font-size:13px">${r.w}-${r.l}</td><td style="width:78px"><span class="crw">${crown(14)}${r.w}</span></td></tr>`).join('')}</table>`:'<div class="empty">עוד אין תוצאות ביום הזה</div>'}
+   <div class="sh"><h2>המשחקים</h2><span class="more">${ms.length}</span></div>${ms.length?ms.map(matchCard).join(''):'<div class="empty">לחצו על "תוצאה חדשה" כדי להוסיף משחק</div>'}
+   <div class="sh"><h2>תמונות מהיום</h2>${b(ic('camera',16)+'תמונה',`data-act="addphoto" data-id="${id}"`,'ghost')}</div><div id="gal" class="gal"></div>`;
 }
 async function loadPhotos(id){
   const g=$('#gal');if(!g)return;
   try{const ph=await rest('padel_photos?evening_id=eq.'+id+'&select=id,player_id,data&order=created_at');
    g.innerHTML=ph.length?ph.map(x=>`<img src="${x.data}" data-act="viewphoto" data-id="${x.id}" data-by="${x.player_id||''}" alt="">`).join(''):'<div class="empty" style="grid-column:1/-1">עוד אין תמונות</div>'}catch{}
 }
-
+/* ---------- admin ---------- */
+const validPhone=p=>/^0\d{8,9}$/.test(p||'');
+const waLink=(p,c)=>{const pw=c.pw?`הסיסמה שלך היא: ${c.pw}`:'הסיסמה שלך היא הסיסמה שבחרת בעצמך';
+  const msg=`שלום ${fn(p)}! מצטרפים לפאדל פנדל.\nהקישור לאתר: ${location.origin}\n${pw}\nנכנסים עם הסיסמה בלבד, ואפשר לעדכן תוצאות מהטלפון.`;
+  return 'https://wa.me/972'+c.phone.slice(1)+'?text='+encodeURIComponent(msg)};
+function vAdmin(){
+  if(!S.me||!S.me.admin)return '<div class="empty">האזור הזה רק למנהל</div>';
+  setTimeout(loadAdmin,0);
+  return `<div class="sh"><h2>שליחת גישה לשחקנים</h2></div><p class="sub">שולחים לכל שחקן הודעה בוואטסאפ עם הקישור והסיסמה שלו.</p><div id="adm"><div class="loader">טוען...</div></div>`;
+}
+async function loadAdmin(){try{S.contacts=await rpc('padel_admin_contacts',{p_token:S.token});renderAdmin()}catch(e){toast(e.message,1)}}
+function renderAdmin(){
+  const el=$('#adm');if(!el)return;
+  el.innerHTML=S.players.map(p=>{const c=S.contacts.find(x=>x.player_id===p.id)||{};const ok=validPhone(c.phone);
+   return `<div class="row-item">${av(p,46)}<div class="n">${esc(p.name)}<small>${ok?c.phone:'אין מספר'} · ${c.has_pw?'יש סיסמה':'אין סיסמה'}</small></div>${ok?`<a class="btn sm" target="_blank" rel="noopener" href="${waLink(p,c)}">${ic('whatsapp',16)}שלח</a><button class="ibtn" data-act="phone" data-id="${p.id}" aria-label="שינוי מספר">${ic('edit',18)}</button>`:`<button class="btn sm ghost" data-act="phone" data-id="${p.id}">${ic('phone',16)}שים מספר</button>`}</div>`}).join('');
+}
 /* ---------- router ---------- */
 async function route(){
   renderTop();
   const [r,id]=(location.hash.replace('#/','')||'home').split('/');
   let h;
-  if(r==='evenings')h=vEvenings();else if(r==='ranking')h=vRanking();else if(r==='players')h=vPlayers();else if(r==='evening')h=await vEvening(id);else h=vHome();
+  if(r==='evenings')h=vEvenings();else if(r==='ranking')h=vRanking();else if(r==='players')h=vPlayers();else if(r==='admin')h=vAdmin();else if(r==='evening')h=await vEvening(id);else h=vHome();
   $('#app').innerHTML=h;window.scrollTo(0,0);bindTilt();
 }
 addEventListener('hashchange',route);
@@ -269,111 +338,146 @@ addEventListener('hashchange',route);
 function sheet(html){closeSheet();const d=document.createElement('div');d.className='sheet-bg';d.innerHTML=`<div class="sheet">${html}</div>`;d.addEventListener('mousedown',e=>{if(e.target===d)closeSheet()});$('#sheet').appendChild(d);bindTilt()}
 function closeSheet(){$('#sheet').innerHTML=''}
 function needLogin(){if(S.me)return false;sheet(loginHtml());return true}
-const loginHtml=()=>`<h3>🔑 כניסה</h3><label class="lbl">הסיסמה האישית שלך</label><input id="pw" type="password" inputmode="text" autocomplete="current-password" placeholder="הקלד סיסמה"><div class="ctl"><button class="btn" data-act="dologin">כניסה</button><button class="btn ghost" data-act="close">ביטול</button></div>`;
-
+const loginHtml=()=>`<h3>כניסה</h3><label class="lbl">הסיסמה האישית שלך</label><input id="pw" type="password" autocomplete="current-password" placeholder="הקלד סיסמה"><div class="ctl">${B('כניסה','data-act="dologin"')}${b('ביטול','data-act="close"','ghost')}</div>`;
 async function doLogin(){
   const pw=$('#pw').value.trim();if(!pw)return;
-  try{const r=await rpc('padel_login',{p_password:pw});S.token=r.token;localStorage.setItem('pp_token',r.token);await initSession();closeSheet();toast('ברוך הבא '+me().name.split(' ')[0]+' 👑');route();if(S.afterLogin){const f=S.afterLogin;S.afterLogin=null;f()}}
+  try{const r=await rpc('padel_login',{p_password:pw});S.token=r.token;localStorage.setItem('pp_token',r.token);await initSession();closeSheet();toast('שלום '+fn(me()));route();if(S.afterLogin){const f=S.afterLogin;S.afterLogin=null;f()}}
   catch(e){toast(e.message,1)}
 }
-function pickGrid(sel){return `<div class="pick">${S.players.map(p=>`<div class="pk ${sel.includes(p.id)?'on':''}" data-act="tgl" data-id="${p.id}">${av(p,44)}${esc(p.name.split(' ')[0])}</div>`).join('')}</div>`}
+function pickGrid(sel){return `<div class="pick">${S.players.map(p=>`<div class="pk ${sel.includes(p.id)?'on':''}" data-act="tgl" data-id="${p.id}">${sel.includes(p.id)?`<i class="ck">${ic('check',12)}</i>`:''}${av(p,46)}${esc(fn(p))}</div>`).join('')}</div>`}
 function evSheet(e){
   const sel=e?evPlayers(e.id).map(p=>p.id):[];S.sel=new Set(sel);S.editEv=e?e.id:null;
   const locs=[...new Set(S.evenings.map(x=>x.location).filter(Boolean))];
-  sheet(`<h3>${e?'עריכת ערב':'🎾 פתיחת משחק'}</h3>
+  const canDel=e&&S.me&&(S.me.admin||e.created_by===S.me.id);
+  sheet(`<h3>${e?'עריכת יום המשחק':'יום משחק חדש'}</h3>
    <label class="lbl">תאריך</label><input id="ed" type="date" value="${e?e.played_on:today()}">
    <label class="lbl">מגרש / מיקום</label><input id="el" list="locs" value="${esc(e?e.location:'')}" placeholder="למשל: צור משה"><datalist id="locs">${locs.map(l=>`<option value="${esc(l)}">`).join('')}</datalist>
-   <label class="lbl">מי משחק הערב? (לחצו לבחירה)</label><div id="pg">${pickGrid(sel)}</div>
-   <div class="ctl"><button class="btn" data-act="saveev">${e?'שמור':'התחל ערב'}</button><button class="btn ghost" data-act="addplayer">+ שחקן חדש</button>${e?`<button class="btn red" data-act="delev">מחק ערב</button>`:''}</div>`);
+   <label class="lbl">מי משחק היום? (לחצו לבחירה)</label><div id="pg">${pickGrid(sel)}</div>
+   <div class="ctl">${B(e?'שמור':'התחל יום משחק','data-act="saveev"')}${b(ic('plus',16)+'שחקן חדש','data-act="addplayer"','ghost')}${canDel?b(ic('trash',16)+'מחק','data-act="delev"','red'):''}</div>`);
 }
 function matchSheet(eid,m){
-  const pl=evPlayers(eid);if(pl.length<4){toast('צריך לפחות 4 שחקנים בערב. אפשר להוסיף בעריכת הערב',1);return}
+  const pl=evPlayers(eid);if(pl.length<4){toast('צריך לפחות 4 שחקנים ביום המשחק. אפשר להוסיף בעריכה',1);return}
   S.mf={eid,id:m?m.id:null,sa:m?m.score_a:6,sb:m?m.score_b:0,stage:m?m.stage:'game'};
   const sel=(n,v)=>`<select id="${n}">${pl.map(p=>`<option value="${p.id}" ${v===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}</select>`;
   const v=m?[m.a1,m.a2,m.b1,m.b2]:[pl[0].id,pl[1].id,pl[2].id,pl[3].id];
-  sheet(`<h3>${m?'עריכת תוצאה':'🏁 תוצאה חדשה'}</h3>
+  sheet(`<h3>${m?'עריכת תוצאה':'תוצאה חדשה'}</h3>
    <div class="tb"><div><h4>זוג א׳</h4>${sel('a1',v[0])}${sel('a2',v[1])}</div><div><h4>זוג ב׳</h4>${sel('b1',v[2])}${sel('b2',v[3])}</div></div>
-   <div class="tb" style="margin-top:12px"><div class="sc"><button data-act="sc" data-k="sa" data-d="1">+</button><output id="osa">${S.mf.sa}</output><button data-act="sc" data-k="sa" data-d="-1">−</button></div><div class="sc"><button data-act="sc" data-k="sb" data-d="1">+</button><output id="osb">${S.mf.sb}</output><button data-act="sc" data-k="sb" data-d="-1">−</button></div></div>
+   <div class="tb" style="margin-top:12px"><div class="sc"><button data-act="sc" data-k="sa" data-d="1">${ic('plus',20)}</button><output id="osa">${S.mf.sa}</output><button data-act="sc" data-k="sa" data-d="-1">${ic('minus',20)}</button></div><div class="sc"><button data-act="sc" data-k="sb" data-d="1">${ic('plus',20)}</button><output id="osb">${S.mf.sb}</output><button data-act="sc" data-k="sb" data-d="-1">${ic('minus',20)}</button></div></div>
    <label class="lbl">סוג משחק</label><div class="chs">${Object.entries(STAGES).map(([k,t])=>`<button data-act="stage" data-k="${k}" class="${S.mf.stage===k?'on':''}">${t}</button>`).join('')}</div>
-   <div class="ctl"><button class="btn" data-act="savematch">שמור</button>${m?`<button class="btn red" data-act="delmatch" data-id="${m.id}">מחק</button>`:''}<button class="btn ghost" data-act="close">ביטול</button></div>`);
+   <div class="ctl">${B('שמור','data-act="savematch"')}${m?b(ic('trash',16)+'מחק',`data-act="delmatch" data-id="${m.id}"`,'red'):''}${b('ביטול','data-act="close"','ghost')}</div>`);
 }
 function playerSheet(id){
   const p=P(id),st=stats(S.matches)[id]||{w:0,l:0};
   const rk=ranked(S.matches),pos=rk.findIndex(r=>r.p.id===id)+1;
-  const own=S.me&&(S.me.id===id||S.me.admin);
+  const own=S.me&&(S.me.id===id||S.me.admin),adm=S.me&&S.me.admin;
   const evs=S.evenings.filter(e=>evMatches(e.id).some(m=>[m.a1,m.a2,m.b1,m.b2].includes(id))).length;
-  sheet(`<div class="big3d"><div class="pcard tilt" style="width:220px;cursor:default">${av(p,130)}<div class="nm" style="font-size:20px">${esc(p.name)}</div><div class="cr">${crown(24)}<span>${st.w}</span></div><div class="wl">מקום ${pos} בדירוג</div></div></div>
+  const a=S.adj.find(x=>x.player_id===id)||{w:0,l:0};S.ad={id,w:a.w,l:a.l};
+  sheet(`<div class="big3d"><div class="pcard tilt" style="width:220px;cursor:default">${avx(p,130)}<div class="nm" style="font-size:20px">${esc(p.name)}</div><div class="cr">${crown(24)}<span>${st.w}</span></div><div class="wl">מקום ${pos} בדירוג</div></div></div>
    <div class="chips"><div class="chip"><b>${st.w}</b><span>ניצחונות</span></div><div class="chip"><b>${st.l}</b><span>הפסדים</span></div><div class="chip"><b>${pct(st.w,st.l)}%</b><span>אחוז ניצחון</span></div></div>
-   <div style="text-align:center;color:var(--mut);margin-top:10px;font-size:13px">שיחק ב-${evs} ערבים</div>
-   ${own?`<label class="lbl">שם</label><input id="pn" value="${esc(p.name)}"><div class="ctl"><button class="btn sm" data-act="pickphoto" data-id="${id}">📷 ${p.photo?'החלף תמונה':'העלה תמונה'}</button>${p.photo?`<button class="btn sm ghost" data-act="rmphoto" data-id="${id}">הסר תמונה</button>`:''}</div>
-   <label class="lbl">${S.me.admin&&S.me.id!==id?'קביעת סיסמה לשחקן':'הסיסמה שלי'}</label><input id="np" type="text" placeholder="סיסמה חדשה (לפחות 3 תווים)" autocomplete="off">
-   <div class="ctl"><button class="btn" data-act="saveplayer" data-id="${id}">שמור</button><button class="btn ghost" data-act="close">סגור</button>${S.me.id===id?'<button class="btn red sm" data-act="logout">התנתק</button>':''}</div>`:`<div class="ctl"><button class="btn ghost" data-act="close">סגור</button></div>`}`);
+   <div style="text-align:center;color:var(--mut);margin-top:10px;font-size:13px">שיחק ב-${evs} ימי משחק</div>
+   ${own?`<label class="lbl">שם</label><input id="pn" value="${esc(p.name)}">
+   <div class="ctl" style="margin-top:12px">${b(ic('camera',16)+(p.photo?'החלפת תמונה':'העלאת תמונה'),`data-act="pickphoto" data-id="${id}"`)}${p.photo?b('הסרת תמונה',`data-act="rmphoto" data-id="${id}"`,'ghost'):''}${b('שמירת שם',`data-act="saveplayer" data-id="${id}"`,'ghost')}</div>
+   <label class="lbl">${adm&&S.me.id!==id?'הסיסמה הנוכחית של השחקן':'הסיסמה הנוכחית שלי'}</label><input id="cp" readonly value="טוען...">
+   <label class="lbl">החלפת סיסמה</label><input id="np" type="text" placeholder="סיסמה חדשה (לפחות 3 תווים)" autocomplete="off">
+   <div class="ctl" style="margin-top:12px">${b(ic('key',16)+'החלפת סיסמה',`data-act="chpw" data-id="${id}"`)}</div>
+   ${adm?`<div class="adj"><b>התאמת ניצחונות והפסדים (מנהל)</b><small>מתווסף או מופחת מהתוצאות שנרשמו, בטבלה הכללית</small><div class="tb"><div><h4>ניצחונות</h4><div class="sc"><button data-act="adj" data-k="w" data-d="1">${ic('plus',20)}</button><output id="oaw">${S.ad.w}</output><button data-act="adj" data-k="w" data-d="-1">${ic('minus',20)}</button></div></div><div><h4>הפסדים</h4><div class="sc"><button data-act="adj" data-k="l" data-d="1">${ic('plus',20)}</button><output id="oal">${S.ad.l}</output><button data-act="adj" data-k="l" data-d="-1">${ic('minus',20)}</button></div></div></div><div class="ctl" style="margin-top:12px">${b('שמירת התאמה','data-act="saveadj"')}</div></div>`:''}
+   <div class="ctl">${b('סגור','data-act="close"','ghost')}${S.me.id===id?b(ic('logout',16)+'התנתק','data-act="logout"','red'):''}</div>`:`<div class="ctl">${b('סגור','data-act="close"','ghost')}</div>`}`);
+  if(own)rpc('padel_my_password',{p_token:S.token,p_player:id}).then(v=>{const e=$('#cp');if(e)e.value=v||'לא ידועה (בחר סיסמה חדשה)'}).catch(()=>{const e=$('#cp');if(e)e.value='-'});
 }
 function addPlayerSheet(back){
   S.newPhoto=null;S.apBack=back||null;
-  sheet(`<h3>+ שחקן חדש</h3><label class="lbl">שם</label><input id="apn" placeholder="שם מלא"><div class="ctl"><button class="btn sm ghost" data-act="pickphoto" data-id="new">📷 תמונה (לא חובה)</button></div><div id="apv" style="margin-top:10px"></div><div class="ctl"><button class="btn" data-act="saveNew">הוסף</button><button class="btn ghost" data-act="close">ביטול</button></div>`);
+  sheet(`<h3>שחקן חדש</h3><label class="lbl">שם</label><input id="apn" placeholder="שם מלא"><div class="ctl">${b(ic('camera',16)+'תמונה (לא חובה)','data-act="pickphoto" data-id="new"','ghost')}</div><div id="apv" style="margin-top:12px"></div><div class="ctl">${B('הוסף','data-act="saveNew"')}${b('ביטול','data-act="close"','ghost')}</div>`);
+}
+function phoneSheet(id){
+  const p=P(id),c=S.contacts.find(x=>x.player_id===id)||{};S.phoneFor=id;
+  sheet(`<h3>המספר של ${esc(p.name)}</h3><p class="sub">המספר הוא גם הסיסמה הראשונית של השחקן. אחרי השמירה נפתח וואטסאפ עם ההודעה.</p><label class="lbl">מספר טלפון</label><input id="ph" type="tel" inputmode="tel" placeholder="050-0000000" value="${esc(c.phone||'')}"><div class="ctl">${B(ic('whatsapp',18)+' שמור ושלח','data-act="savephone"')}${b('ביטול','data-act="close"','ghost')}</div>`);
 }
 
-/* ---------- image helper ---------- */
-function pickImage(max,square){
-  return new Promise(res=>{const i=document.createElement('input');i.type='file';i.accept='image/*';
-   i.onchange=()=>{const f=i.files[0];if(!f)return res(null);const im=new Image();im.onload=()=>{
-     let w=im.width,h=im.height,sx=0,sy=0,sw=w,sh=h;
-     if(square){const s=Math.min(w,h);sx=(w-s)/2;sy=(h-s)*0.25;sw=sh=s;w=h=Math.min(max,s)}
-     else{const k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k)}
-     const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,sx,sy,sw,sh,0,0,w,h);res(c.toDataURL('image/jpeg',square?.82:.74))};
-     im.src=URL.createObjectURL(f)};i.click()});
+/* ---------- photo pick + crop ---------- */
+function chooseFile(){return new Promise(res=>{const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=()=>res(i.files[0]||null);i.click()})}
+function loadImg(f){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=URL.createObjectURL(f)})}
+async function pickImage(max){
+  const f=await chooseFile();if(!f)return null;const im=await loadImg(f);
+  const k=Math.min(1,max/Math.max(im.width,im.height)),w=Math.round(im.width*k),h=Math.round(im.height*k);
+  const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);return c.toDataURL('image/jpeg',.74);
+}
+async function pickAvatar(){
+  const f=await chooseFile();if(!f)return null;const im=await loadImg(f);
+  return new Promise(res=>{
+    const V=300,base=Math.max(V/im.width,V/im.height);let z=1,cx=V/2,cy=V/2;
+    $('#cropl').innerHTML=`<div class="crop-bg"><div class="crop"><h3>התאמת התמונה</h3><div class="cvw"><canvas id="cv" width="${V}" height="${V}"></canvas></div><label class="lbl" style="margin:0">זום (אפשר גם לגרור את התמונה)</label><input type="range" id="zm" min="1" max="4" step="0.01" value="1"><div class="ctl">${B('שמור','data-act="cropok"')}${b('ביטול','data-act="cropno"','ghost')}</div></div></div>`;
+    const cv=$('#cv'),ctx=cv.getContext('2d');
+    const clamp=()=>{const ws=im.width*base*z,hs=im.height*base*z;cx=Math.min(ws/2,Math.max(V-ws/2,cx));cy=Math.min(hs/2,Math.max(V-hs/2,cy))};
+    const draw=(c=ctx,k=1)=>{const ws=im.width*base*z,hs=im.height*base*z;c.fillStyle='#000';c.fillRect(0,0,V*k,V*k);c.drawImage(im,(cx-ws/2)*k,(cy-hs/2)*k,ws*k,hs*k)};
+    const set=nz=>{z=Math.min(4,Math.max(1,nz));$('#zm').value=z;clamp();draw()};
+    draw();$('#zm').oninput=e=>set(+e.target.value);
+    const ptr=new Map();let pd=0;
+    cv.onpointerdown=e=>{cv.setPointerCapture(e.pointerId);ptr.set(e.pointerId,[e.clientX,e.clientY]);pd=0};
+    cv.onpointermove=e=>{if(!ptr.has(e.pointerId))return;const o=ptr.get(e.pointerId);const r=cv.getBoundingClientRect(),sc=V/r.width;
+      if(ptr.size===1){cx+=(e.clientX-o[0])*sc;cy+=(e.clientY-o[1])*sc;ptr.set(e.pointerId,[e.clientX,e.clientY]);clamp();draw()}
+      else{ptr.set(e.pointerId,[e.clientX,e.clientY]);const a=[...ptr.values()],d=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]);if(pd)set(z*d/pd);pd=d}};
+    cv.onpointerup=cv.onpointercancel=e=>{ptr.delete(e.pointerId);pd=0};
+    cv.onwheel=e=>{e.preventDefault();set(z*(e.deltaY<0?1.08:.93))};
+    S.cropOk=()=>{const o=document.createElement('canvas');o.width=o.height=320;draw(o.getContext('2d'),320/V);$('#cropl').innerHTML='';res(o.toDataURL('image/jpeg',.85))};
+    S.cropNo=()=>{$('#cropl').innerHTML='';res(null)};
+  });
 }
 
 /* ---------- actions ---------- */
 const A={
   close:closeSheet,
-  login:()=>sheet(loginHtml()),
-  dologin:doLogin,
+  login:()=>sheet(loginHtml()),dologin:doLogin,
   logout:()=>{closeSheet();logout()},
+  cropok:()=>S.cropOk&&S.cropOk(),cropno:()=>S.cropNo&&S.cropNo(),
   new:()=>{if(needLogin()){S.afterLogin=()=>evSheet(null);return}evSheet(null)},
   editev:d=>evSheet(S.evenings.find(e=>e.id===d.id)),
   tgl:d=>{S.sel.has(d.id)?S.sel.delete(d.id):S.sel.add(d.id);$('#pg').innerHTML=pickGrid([...S.sel])},
   saveev:async()=>{
     if(S.sel.size<4){toast('צריך לפחות 4 שחקנים',1);return}
     try{const id=await rpc('padel_save_evening',{p_token:S.token,p_id:S.editEv,p_date:$('#ed').value,p_location:$('#el').value,p_players:[...S.sel]});
-      await loadAll();closeSheet();toast(S.editEv?'נשמר':'הערב נפתח! 🎾');location.hash='#/evening/'+id;route()}catch(e){toast(e.message,1)}},
-  delev:async()=>{if(!confirm('למחוק את כל הערב כולל המשחקים?'))return;
+      await loadAll();closeSheet();toast(S.editEv?'נשמר':'יום המשחק נפתח');location.hash='#/evening/'+id;route()}catch(e){toast(e.message,1)}},
+  delev:async()=>{if(!confirm('למחוק את כל יום המשחק כולל המשחקים?'))return;
     try{await rpc('padel_delete_evening',{p_token:S.token,p_id:S.editEv});await loadAll();closeSheet();location.hash='#/evenings';route()}catch(e){toast(e.message,1)}},
   addmatch:d=>{if(needLogin()){S.afterLogin=()=>matchSheet(d.id);return}matchSheet(d.id)},
-  editmatch:d=>matchSheet(S.matches.find(m=>m.id===d.id).evening_id,S.matches.find(m=>m.id===d.id)),
+  editmatch:d=>{const m=S.matches.find(x=>x.id===d.id);matchSheet(m.evening_id,m)},
   sc:d=>{S.mf[d.k]=Math.max(0,Math.min(99,S.mf[d.k]+ +d.d));$('#o'+d.k).textContent=S.mf[d.k]},
-  stage:d=>{S.mf.stage=d.k;document.querySelectorAll('[data-act=stage]').forEach(b=>b.classList.toggle('on',b.dataset.k===d.k))},
+  stage:d=>{S.mf.stage=d.k;document.querySelectorAll('[data-act=stage]').forEach(x=>x.classList.toggle('on',x.dataset.k===d.k))},
   savematch:async()=>{const f=S.mf;
     try{await rpc('padel_save_match',{p_token:S.token,p_id:f.id,p_evening:f.eid,p_a1:$('#a1').value,p_a2:$('#a2').value,p_b1:$('#b1').value,p_b2:$('#b2').value,p_sa:f.sa,p_sb:f.sb,p_stage:f.stage});
-      await loadAll();closeSheet();toast('התוצאה נשמרה 👑');route()}catch(e){toast(e.message,1)}},
+      await loadAll();closeSheet();toast('התוצאה נשמרה');route()}catch(e){toast(e.message,1)}},
   delmatch:async d=>{if(!confirm('למחוק את המשחק?'))return;
     try{await rpc('padel_delete_match',{p_token:S.token,p_id:d.id});await loadAll();closeSheet();route()}catch(e){toast(e.message,1)}},
   player:d=>playerSheet(d.id),
-  addplayer:()=>{if(needLogin()){S.afterLogin=()=>addPlayerSheet();return}addPlayerSheet(S.editEv!==null&&$('#pg')?'ev':null)},
-  pickphoto:async d=>{const img=await pickImage(320,true);if(!img)return;
-    if(d.id==='new'){S.newPhoto=img;$('#apv').innerHTML=av({photo:img},80)}
+  addplayer:()=>{if(needLogin()){S.afterLogin=()=>addPlayerSheet();return}addPlayerSheet($('#pg')?'ev':null)},
+  pickphoto:async d=>{const img=await pickAvatar();if(!img)return;
+    if(d.id==='new'){S.newPhoto=img;$('#apv').innerHTML=av({photo:img},84)}
     else{try{await rpc('padel_save_player',{p_token:S.token,p_id:d.id,p_name:P(d.id).name,p_photo:img});await loadAll();playerSheet(d.id);route();toast('התמונה עודכנה')}catch(e){toast(e.message,1)}}},
   rmphoto:async d=>{try{await rpc('padel_remove_photo',{p_token:S.token,p_id:d.id});await loadAll();playerSheet(d.id);route()}catch(e){toast(e.message,1)}},
-  saveplayer:async d=>{
-    try{const n=$('#pn').value.trim(),pw=$('#np').value.trim();
-      await rpc('padel_save_player',{p_token:S.token,p_id:d.id,p_name:n,p_photo:null});
-      if(pw)await rpc('padel_set_password',{p_token:S.token,p_player:d.id,p_pw:pw});
-      await loadAll();closeSheet();toast(pw?'נשמר, הסיסמה עודכנה':'נשמר');route()}catch(e){toast(e.message,1)}},
+  saveplayer:async d=>{try{await rpc('padel_save_player',{p_token:S.token,p_id:d.id,p_name:$('#pn').value.trim(),p_photo:null});await loadAll();closeSheet();toast('נשמר');route()}catch(e){toast(e.message,1)}},
+  chpw:async d=>{const pw=$('#np').value.trim();if(!pw){toast('כתוב סיסמה חדשה',1);return}
+    try{await rpc('padel_set_password',{p_token:S.token,p_player:d.id,p_pw:pw});$('#cp').value=pw;$('#np').value='';toast('הסיסמה הוחלפה')}catch(e){toast(e.message,1)}},
+  adj:d=>{S.ad[d.k]+=+d.d;$('#oa'+d.k).textContent=S.ad[d.k]},
+  saveadj:async()=>{try{await rpc('padel_set_adjust',{p_token:S.token,p_player:S.ad.id,p_w:S.ad.w,p_l:S.ad.l});await loadAll();closeSheet();toast('ההתאמה נשמרה');route()}catch(e){toast(e.message,1)}},
+  phone:d=>phoneSheet(d.id),
+  savephone:async()=>{const id=S.phoneFor,c=S.contacts.find(x=>x.player_id===id)||{};
+    try{const setPw=!c.has_pw||(c.pw&&c.pw===c.phone);
+      await rpc('padel_admin_set_phone',{p_token:S.token,p_player:id,p_phone:$('#ph').value,p_set_pw:setPw});
+      S.contacts=await rpc('padel_admin_contacts',{p_token:S.token});closeSheet();renderAdmin();
+      const n=S.contacts.find(x=>x.player_id===id);
+      const w=window.open(waLink(P(id),n),'_blank');toast(w?'נפתח וואטסאפ':'המספר נשמר, לחץ על שלח')}catch(e){toast(e.message,1)}},
   saveNew:async()=>{const n=$('#apn').value.trim();
     try{const id=await rpc('padel_save_player',{p_token:S.token,p_id:null,p_name:n,p_photo:S.newPhoto});await loadAll();
-      if(S.apBack==='ev'){S.sel=S.sel||new Set();const keep=[...S.sel];keep.push(id);const e=S.editEv?S.evenings.find(x=>x.id===S.editEv):null;evSheet(e);keep.forEach(k=>S.sel.add(k));$('#pg').innerHTML=pickGrid([...S.sel])}
-      else{closeSheet();route()}toast('נוסף! 🎉')}catch(e){toast(e.message,1)}},
-  addphoto:async d=>{if(needLogin())return;const img=await pickImage(1000,false);if(!img)return;
+      if(S.apBack==='ev'){const keep=[...(S.sel||[])];keep.push(id);const e=S.editEv?S.evenings.find(x=>x.id===S.editEv):null;evSheet(e);keep.forEach(k=>S.sel.add(k));$('#pg').innerHTML=pickGrid([...S.sel])}
+      else{closeSheet();route()}toast('נוסף')}catch(e){toast(e.message,1)}},
+  addphoto:async d=>{if(needLogin())return;const img=await pickImage(1000);if(!img)return;
     try{await rpc('padel_add_photo',{p_token:S.token,p_evening:d.id,p_data:img});toast('התמונה עלתה');loadPhotos(d.id)}catch(e){toast(e.message,1)}},
-  viewphoto:d=>{const src=document.querySelector(`img[data-id="${d.id}"]`).src;const by=d.by;
-    sheet(`<img src="${src}" style="width:100%;border-radius:16px"><div class="ctl">${canEdit(by)?`<button class="btn red sm" data-act="delphoto" data-id="${d.id}">מחק תמונה</button>`:''}<button class="btn ghost sm" data-act="close">סגור</button></div>`)},
+  viewphoto:d=>{const src=document.querySelector(`img[data-id="${d.id}"]`).src;const ok=S.me&&(S.me.admin||S.me.id===d.by);
+    sheet(`<img src="${src}" style="width:100%;border-radius:18px"><div class="ctl">${ok?b(ic('trash',16)+'מחק תמונה',`data-act="delphoto" data-id="${d.id}"`,'red'):''}${b('סגור','data-act="close"','ghost')}</div>`)},
   delphoto:async d=>{try{await rpc('padel_delete_photo',{p_token:S.token,p_id:d.id});closeSheet();route()}catch(e){toast(e.message,1)}}
 };
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const f=A[t.dataset.act];if(f){e.preventDefault();f({...t.dataset})}});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&$('#pw'))doLogin()});
 
-/* ---------- 3D tilt ---------- */
 function bindTilt(){
   document.querySelectorAll('.tilt').forEach(el=>{if(el._t)return;el._t=1;
     const mv=e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
@@ -381,7 +485,6 @@ function bindTilt(){
     const rs=()=>{el.style.transform='';el.style.setProperty('--mx','50%');el.style.setProperty('--my','0%')};
     el.addEventListener('pointermove',mv);el.addEventListener('pointerleave',rs);el.addEventListener('pointerup',()=>setTimeout(rs,250))});
 }
-
 (async()=>{try{await Promise.all([loadAll(),initSession()]);route()}catch{$('#app').innerHTML='<div class="empty">לא הצלחתי לטעון. בדקו חיבור ורעננו</div>'}})();
 </script>
 </body>
