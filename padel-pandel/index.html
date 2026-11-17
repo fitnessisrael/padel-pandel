@@ -262,20 +262,28 @@ function renderTop(){
 }
 
 function vHome(){
-  const rk=ranked(S.matches),last=S.evenings[0];
+  const rk=ranked(S.matches),nx=nextEv(),past=S.evenings.filter(e=>e!==nx&&e.played_on<=today()).slice(0,3);
   return `<section class="hero"><img class="lg" src="logo.jpg" alt="פאדל פנדל"><div class="in"><div class="dash"><i></i><i></i><i class="on"></i></div>
    <h1>ברוכים הבאים<br>ל<span>פאדל פנדל</span></h1><p>חברים. רשת. משחק. עוקבים אחרי כל ניצחון, כל כתר וכל יום משחק של החבר'ה.</p>
    <div class="row">${B('פתח משחק','data-act="new"')}<a href="#/ranking" style="text-decoration:none">${B('דירוג המובילים','tabindex="-1" style="width:100%"','ghost')}</a></div></div></section>
    <div class="chips"><div class="chip"><b>${S.evenings.length}</b><span>ימי משחק</span></div><div class="chip"><b>${S.matches.length}</b><span>משחקים</span></div><div class="chip"><b>${S.players.length}</b><span>שחקנים</span></div></div>
    ${rk.length?`<div class="sh"><h2>דירוג המובילים</h2><a href="#/ranking">הכל</a></div><div class="podium">${[1,0,2].map(i=>rk[i]?pcard(rk[i],i):'<div></div>').join('')}</div>`:''}
-   ${last?`<div class="sh"><h2>יום המשחק האחרון</h2><a href="#/evenings">הכל</a></div>${evCard(last,0)}`:''}`;
+   ${nx?`<div class="sh"><h2>המשחק הבא</h2><a href="#/evenings">הכל</a></div>${evCard(nx,0,'next')}`:''}
+   ${past.length?`<div class="sh"><h2>ימי המשחק האחרונים</h2><a href="#/evenings">הכל</a></div>${past.map((e,i)=>evCard(e,i+1)).join('')}`:''}`;
 }
-function evCard(e,i){
+const nextEv=()=>S.evenings.filter(e=>e.played_on>=today()).sort((a,b)=>a.played_on.localeCompare(b.played_on))[0];
+function evCard(e,i,kind){
   const ms=evMatches(e.id),r=ranked(ms)[0],pl=evPlayers(e.id);
-  return `<a class="upc" href="#/evening/${e.id}"><div class="l"><span class="k">${r?'מלך היום: '+esc(fn(r.p))+' · '+r.w+' כתרים':'יום משחק'}</span><span class="d">${fmt(e.played_on,true)}</span><span class="s">${ic('pin',15)}${esc(e.location||'ללא מיקום')} · ${ms.length} משחקים</span><div class="avs">${pl.slice(0,6).map(p=>av(p,30)).join('')}</div></div><div class="im" style="background-image:url(${IM[i%IM.length]})"></div></a>`;
+  let k=r?'מלך היום: '+esc(fn(r.p))+' · '+r.w+' כתרים':'יום משחק';
+  let sl=`${esc(e.location||'ללא מיקום')} · ${ms.length} משחקים`;
+  if(kind==='next'){const dd=Math.round((new Date(e.played_on+'T12:00:00')-new Date(today()+'T12:00:00'))/864e5);k='המשחק הבא · '+(dd<=0?'היום':dd===1?'מחר':'בעוד '+dd+' ימים');sl=`${esc(e.location||'ללא מיקום')} · ${pl.length} שחקנים`}
+  return `<a class="upc" href="#/evening/${e.id}"><div class="l"><span class="k">${k}</span><span class="d">${fmt(e.played_on,true)}</span><span class="s">${ic('pin',15)}${sl}</span><div class="avs">${pl.slice(0,6).map(p=>av(p,30)).join('')}</div></div><div class="im" style="background-image:url(${IM[i%IM.length]})"></div></a>`;
 }
 function vEvenings(){
-  return `<div class="sh"><h2>ימי המשחק</h2>${b(ic('plus',16)+'יום משחק חדש','data-act="new"')}</div>`+(S.evenings.length?S.evenings.map(evCard).join(''):'<div class="empty">עוד אין ימי משחק. לחצו על "יום משחק חדש"</div>');
+  const nx=nextEv(),rest=S.evenings.filter(e=>e!==nx);
+  return `<div class="sh"><h2>ימי המשחק</h2>${b(ic('plus',16)+'יום משחק חדש','data-act="new"')}</div>`+
+   (nx?`<div class="sh" style="margin-top:6px"><h2>המשחק הבא</h2></div>${evCard(nx,0,'next')}${rest.length?'<div class="sh"><h2>ימי המשחק הקודמים</h2></div>':''}`:'')+
+   (rest.length?rest.map((e,i)=>evCard(e,i+1)).join(''):(nx?'':'<div class="empty">עוד אין ימי משחק. לחצו על "יום משחק חדש"</div>'));
 }
 function vRanking(){
   const rk=ranked(S.matches);
@@ -309,7 +317,7 @@ async function loadPhotos(id){
    g.innerHTML=ph.length?ph.map(x=>`<img src="${x.data}" data-act="viewphoto" data-id="${x.id}" data-by="${x.player_id||''}" alt="">`).join(''):'<div class="empty" style="grid-column:1/-1">עוד אין תמונות</div>'}catch{}
 }
 /* ---------- admin ---------- */
-const validPhone=p=>/^0\d{8,9}$/.test(p||'');
+const validPhone=p=>/^05\d{8}$/.test(p||'');
 const waLink=(p,c)=>{const pw=c.pw?`הסיסמה שלך היא: ${c.pw}`:'הסיסמה שלך היא הסיסמה שבחרת בעצמך';
   const msg=`שלום ${fn(p)}! מצטרפים לפאדל פנדל.\nהקישור לאתר: ${location.origin}\n${pw}\nנכנסים עם הסיסמה בלבד, ואפשר לעדכן תוצאות מהטלפון.`;
   return 'https://wa.me/972'+c.phone.slice(1)+'?text='+encodeURIComponent(msg)};
@@ -322,7 +330,10 @@ async function loadAdmin(){try{S.contacts=await rpc('padel_admin_contacts',{p_to
 function renderAdmin(){
   const el=$('#adm');if(!el)return;
   el.innerHTML=S.players.map(p=>{const c=S.contacts.find(x=>x.player_id===p.id)||{};const ok=validPhone(c.phone);
-   return `<div class="row-item">${av(p,46)}<div class="n">${esc(p.name)}<small>${ok?c.phone:'אין מספר'} · ${c.has_pw?'יש סיסמה':'אין סיסמה'}</small></div>${ok?`<a class="btn sm" target="_blank" rel="noopener" href="${waLink(p,c)}">${ic('whatsapp',16)}שלח</a><button class="ibtn" data-act="phone" data-id="${p.id}" aria-label="שינוי מספר">${ic('edit',18)}</button>`:`<button class="btn sm ghost" data-act="phone" data-id="${p.id}">${ic('phone',16)}שים מספר</button>`}</div>`}).join('');
+   const act=ok&&c.has_pw?`<a class="btn sm" target="_blank" rel="noopener" href="${waLink(p,c)}">${ic('whatsapp',16)}שלח גישה</a><button class="ibtn" data-act="phone" data-id="${p.id}" aria-label="שינוי מספר">${ic('edit',18)}</button>`
+    :c.has_pw?`<button class="btn sm ghost" data-act="phone" data-id="${p.id}">${ic('phone',16)}שים מספר לשליחה</button>`
+    :`<button class="btn sm ghost" data-act="phone" data-id="${p.id}">${ic('phone',16)}שים מספר</button>`;
+   return `<div class="row-item">${av(p,46)}<div class="n">${esc(p.name)}<small>${ok?c.phone:'אין מספר נייד תקין'} · ${c.has_pw?'יש סיסמה':'אין סיסמה'}</small></div>${act}</div>`}).join('');
 }
 /* ---------- router ---------- */
 async function route(){
@@ -338,7 +349,7 @@ addEventListener('hashchange',route);
 function sheet(html){closeSheet();const d=document.createElement('div');d.className='sheet-bg';d.innerHTML=`<div class="sheet">${html}</div>`;d.addEventListener('mousedown',e=>{if(e.target===d)closeSheet()});$('#sheet').appendChild(d);bindTilt()}
 function closeSheet(){$('#sheet').innerHTML=''}
 function needLogin(){if(S.me)return false;sheet(loginHtml());return true}
-const loginHtml=()=>`<h3>כניסה</h3><label class="lbl">הסיסמה האישית שלך</label><input id="pw" type="password" autocomplete="current-password" placeholder="הקלד סיסמה"><div class="ctl">${B('כניסה','data-act="dologin"')}${b('ביטול','data-act="close"','ghost')}</div>`;
+const loginHtml=()=>`<h3>כניסה</h3><label class="lbl">הסיסמה האישית שלך</label><input id="pw" type="password" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="הקלד סיסמה"><div class="ctl">${B('כניסה','data-act="dologin"')}${b('ביטול','data-act="close"','ghost')}</div>`;
 async function doLogin(){
   const pw=$('#pw').value.trim();if(!pw)return;
   try{const r=await rpc('padel_login',{p_password:pw});S.token=r.token;localStorage.setItem('pp_token',r.token);await initSession();closeSheet();toast('שלום '+fn(me()));route();if(S.afterLogin){const f=S.afterLogin;S.afterLogin=null;f()}}
@@ -390,7 +401,7 @@ function addPlayerSheet(back){
 }
 function phoneSheet(id){
   const p=P(id),c=S.contacts.find(x=>x.player_id===id)||{};S.phoneFor=id;
-  sheet(`<h3>המספר של ${esc(p.name)}</h3><p class="sub">המספר הוא גם הסיסמה הראשונית של השחקן. אחרי השמירה נפתח וואטסאפ עם ההודעה.</p><label class="lbl">מספר טלפון</label><input id="ph" type="tel" inputmode="tel" placeholder="050-0000000" value="${esc(c.phone||'')}"><div class="ctl">${B(ic('whatsapp',18)+' שמור ושלח','data-act="savephone"')}${b('ביטול','data-act="close"','ghost')}</div>`);
+  sheet(`<h3>המספר של ${esc(p.name)}</h3><p class="sub">${c.has_pw?'המספר ישמש רק לשליחה. הסיסמה של השחקן לא תשתנה.':'המספר הוא גם הסיסמה של השחקן.'} אחרי השמירה נפתח וואטסאפ עם ההודעה.</p><label class="lbl">מספר טלפון</label><input id="ph" type="tel" inputmode="tel" placeholder="050-0000000" value="${esc(c.phone||'')}"><div class="ctl">${B(c.has_pw?'שמור ושלח גישה':'שמור ושלח','data-act="savephone"')}${b('ביטול','data-act="close"','ghost')}</div>`);
 }
 
 /* ---------- photo pick + crop ---------- */
@@ -460,7 +471,7 @@ const A={
   saveadj:async()=>{try{await rpc('padel_set_adjust',{p_token:S.token,p_player:S.ad.id,p_w:S.ad.w,p_l:S.ad.l});await loadAll();closeSheet();toast('ההתאמה נשמרה');route()}catch(e){toast(e.message,1)}},
   phone:d=>phoneSheet(d.id),
   savephone:async()=>{const id=S.phoneFor,c=S.contacts.find(x=>x.player_id===id)||{};
-    try{const setPw=!c.has_pw||(c.pw&&c.pw===c.phone);
+    try{const setPw=!c.has_pw;
       await rpc('padel_admin_set_phone',{p_token:S.token,p_player:id,p_phone:$('#ph').value,p_set_pw:setPw});
       S.contacts=await rpc('padel_admin_contacts',{p_token:S.token});closeSheet();renderAdmin();
       const n=S.contacts.find(x=>x.player_id===id);
