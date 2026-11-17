@@ -129,7 +129,9 @@ input[readonly]{color:var(--lime);background:#10140d;border-style:dashed}
 @media(min-width:700px){.sheet-bg{align-items:center}.sheet{border-radius:28px}}
 @keyframes up{from{transform:translateY(40px);opacity:0}}
 @keyframes fade{from{opacity:0}}
-.sheet h3{margin:0 0 14px;font-size:21px;font-weight:700}
+.sheet h3{margin:0 0 14px;font-size:21px;font-weight:700;padding-inline-end:48px}
+.xrow{position:sticky;top:0;height:0;z-index:5}
+.xbtn{position:absolute;right:-4px;top:-8px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(30,34,30,.92);border:1.5px solid rgba(255,255,255,.28);box-shadow:0 4px 16px rgba(0,0,0,.5)}
 .lbl{display:block;font-size:13px;color:var(--mut);margin:16px 0 7px}
 .pick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .pk{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:10px 4px;text-align:center;font-size:12px;font-weight:600;position:relative;cursor:pointer}
@@ -346,7 +348,7 @@ async function route(){
 addEventListener('hashchange',route);
 
 /* ---------- sheets ---------- */
-function sheet(html){closeSheet();const d=document.createElement('div');d.className='sheet-bg';d.innerHTML=`<div class="sheet">${html}</div>`;d.addEventListener('mousedown',e=>{if(e.target===d)closeSheet()});$('#sheet').appendChild(d);bindTilt()}
+function sheet(html){closeSheet();const d=document.createElement('div');d.className='sheet-bg';d.innerHTML=`<div class="sheet"><div class="xrow"><button class="xbtn" data-act="close" aria-label="סגור">${ic('close',20)}</button></div>${html}</div>`;d.addEventListener('mousedown',e=>{if(e.target===d)closeSheet()});$('#sheet').appendChild(d);bindTilt()}
 function closeSheet(){$('#sheet').innerHTML=''}
 function needLogin(){if(S.me)return false;sheet(loginHtml());return true}
 const loginHtml=()=>`<h3>כניסה</h3><label class="lbl">הסיסמה האישית שלך</label><input id="pw" type="password" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="הקלד סיסמה"><div class="ctl">${B('כניסה','data-act="dologin"')}${b('ביטול','data-act="close"','ghost')}</div>`;
@@ -392,7 +394,7 @@ function playerSheet(id){
    <label class="lbl">החלפת סיסמה</label><input id="np" type="text" placeholder="סיסמה חדשה (לפחות 3 תווים)" autocomplete="off">
    <div class="ctl" style="margin-top:12px">${b(ic('key',16)+'החלפת סיסמה',`data-act="chpw" data-id="${id}"`)}</div>
    ${adm?`<div class="adj"><b>התאמת ניצחונות והפסדים (מנהל)</b><small>מתווסף או מופחת מהתוצאות שנרשמו, בטבלה הכללית</small><div class="tb"><div><h4>ניצחונות</h4><div class="sc"><button data-act="adj" data-k="w" data-d="1">${ic('plus',20)}</button><output id="oaw">${S.ad.w}</output><button data-act="adj" data-k="w" data-d="-1">${ic('minus',20)}</button></div></div><div><h4>הפסדים</h4><div class="sc"><button data-act="adj" data-k="l" data-d="1">${ic('plus',20)}</button><output id="oal">${S.ad.l}</output><button data-act="adj" data-k="l" data-d="-1">${ic('minus',20)}</button></div></div></div><div class="ctl" style="margin-top:12px">${b('שמירת התאמה','data-act="saveadj"')}</div></div>`:''}
-   <div class="ctl">${b('סגור','data-act="close"','ghost')}${S.me.id===id?b(ic('logout',16)+'התנתק','data-act="logout"','red'):''}</div>`:`<div class="ctl">${b('סגור','data-act="close"','ghost')}</div>`}`);
+   ${S.me.id===id?`<div class="ctl">${b(ic('logout',16)+'התנתק','data-act="logout"','red')}</div>`:''}`:''}`);
   if(own)rpc('padel_my_password',{p_token:S.token,p_player:id}).then(v=>{const e=$('#cp');if(e)e.value=v||'לא ידועה (בחר סיסמה חדשה)'}).catch(()=>{const e=$('#cp');if(e)e.value='-'});
 }
 function addPlayerSheet(back){
