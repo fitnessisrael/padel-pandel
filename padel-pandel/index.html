@@ -145,6 +145,12 @@ input[readonly]{color:var(--lime);background:#10140d;border-style:dashed}
 .tb>div{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px}
 .tb h4{margin:0 0 8px;font-size:13px;color:var(--lime);font-weight:600}
 .tb select+select{margin-top:8px}
+.pairbox{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px}
+.pairbox h4{margin:0 0 8px;font-size:13px;color:var(--lime);font-weight:600}
+.prow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.pairbox .sc{background:transparent;border:0;padding:0}
+.vsdiv{display:flex;align-items:center;gap:12px;margin:8px 0}.vsdiv span{flex:1;height:1px;background:var(--line)}
+.vsdiv b{font-family:var(--num);font-style:italic;font-weight:800;font-size:22px;color:var(--lime);text-shadow:0 0 18px var(--limeglow)}
 .chs{display:flex;gap:8px;flex-wrap:wrap}
 .chs button{padding:10px 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.14);font-weight:600;font-size:14px}
 .chs button.on{background:var(--lime);color:#10150a;border-color:var(--lime)}
@@ -319,10 +325,10 @@ async function vEvening(id){
   setTimeout(()=>loadPhotos(id),0);
   S.curEv=id;
   return `${e.cover?`<div class="cover" style="background-image:url('${e.cover}')"></div>`:''}<div class="sh" style="margin-bottom:6px;margin-top:${e.cover?0:30}px"><h2>${fmt(e.played_on,true)}</h2></div><div class="s" style="color:var(--mut);display:flex;gap:6px;align-items:center">${ic('pin',16)}${esc(e.location||'ללא מיקום')}</div>
-   <div class="ctl">${b(ic('users',16)+'קבע זוגות',`data-act="pairs" data-id="${id}"`)}${S.me?b(ic('edit',16)+'עריכת יום המשחק',`data-act="editev" data-id="${id}"`,'ghost'):''}${b(ic('camera',16)+(e.cover?'החלפת קאבר':'תמונת קאבר'),`data-act="cover" data-id="${id}"`,'ghost')}</div>
+   <div class="ctl">${b(ic('plus',16)+'הוסף משחק',`data-act="addmatch" data-id="${id}"`)}${b(ic('users',16)+'קבע זוגות',`data-act="pairs" data-id="${id}"`,'ghost')}${b(ic('image',16)+'שתף תמונת יום המשחק',`data-act="shareimg" data-id="${id}"`,'ghost')}${S.me?b(ic('edit',16)+'עריכת יום המשחק',`data-act="editev" data-id="${id}"`,'ghost'):''}${b(ic('camera',16)+(e.cover?'החלפת קאבר':'תמונת קאבר'),`data-act="cover" data-id="${id}"`,'ghost')}</div>
    <div class="sh"><h2>טבלת היום</h2></div>
    ${rk.length?`<table class="tbl">${rk.map((r,i)=>`<tr data-act="player" data-id="${r.p.id}" style="cursor:pointer"><td style="width:30px" class="rkn">${i+1}</td><td><div class="p">${av(r.p,38)}${esc(r.p.name)}</div></td><td style="text-align:center;color:var(--mut);font-size:13px">${r.w}-${r.l}</td><td style="width:78px"><span class="crw">${crown(14)}${r.w}</span></td></tr>`).join('')}</table>`:'<div class="empty">עוד אין תוצאות ביום הזה</div>'}
-   <div class="sh"><h2>המשחקים</h2><span class="more">${ms.length}</span></div>${ms.length?ms.map(matchCard).join(''):'<div class="empty">לחצו על "קבע זוגות" כדי להתחיל</div>'}
+   <div class="sh"><h2>המשחקים</h2><span class="more">${ms.length}</span></div>${ms.length?ms.map(matchCard).join(''):'<div class="empty">לחצו על "הוסף משחק" כדי להתחיל</div>'}
    <div class="sh"><h2>תמונות מהיום</h2>${b(ic('camera',16)+'תמונה',`data-act="addphoto" data-id="${id}"`,'ghost')}</div><div id="gal" class="gal"></div>`;
 }
 async function loadPhotos(id){
@@ -382,16 +388,69 @@ function evSheet(e){
    <label class="lbl">מי משחק היום? (לחצו לבחירה)</label><div id="pg">${pickGrid(sel)}</div>
    <div class="ctl">${B(e?'שמור':'התחל יום משחק','data-act="saveev"')}${b(ic('plus',16)+'שחקן חדש','data-act="addplayer"','ghost')}${canDel?b(ic('trash',16)+'מחק','data-act="delev"','red'):''}</div>`);
 }
+
+function loadImg(src){return new Promise(r=>{if(!src)return r(null);const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src})}
+async function shareImage(id){
+  const e=S.evenings.find(x=>x.id===id),ms=evMatches(id),rk=ranked(ms);
+  await (document.fonts&&document.fonts.ready);
+  const imgs={};for(const r of rk)imgs[r.p.id]=await loadImg(r.p.photo);
+  const W=1080,pad=60,rowH=120,mrow=96,H=420+rk.length*(rowH+14)+(ms.length?110+ms.length*(mrow+12):0)+120;
+  const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  const F=(w,sz)=>`${w} ${sz}px Rubik, Arial, sans-serif`;
+  x.fillStyle='#0a0a0a';x.fillRect(0,0,W,H);
+  const g=x.createRadialGradient(W/2,0,50,W/2,0,700);g.addColorStop(0,'rgba(200,229,47,.22)');g.addColorStop(1,'rgba(200,229,47,0)');x.fillStyle=g;x.fillRect(0,0,W,700);
+  x.direction='rtl';x.textAlign='center';
+  x.fillStyle='#c8e52f';x.font=F(700,34);x.fillText('פאדל פנדל',W/2,90);
+  x.fillStyle='#fff';x.font=F(800,80);x.fillText('יום משחק',W/2,185);
+  x.font=F(600,46);x.fillText(fmt(e.played_on,true),W/2,258);
+  const t0=ms.map(m=>m.created_at).filter(Boolean).sort()[0];
+  const tm=t0?new Date(t0).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}):'';
+  const sub=[tm?('שעה '+tm):'',e.location||''].filter(Boolean).join('  ·  ');
+  x.fillStyle='#9a9a9a';x.font=F(500,36);if(sub)x.fillText(sub,W/2,316);
+  let y=380;
+  x.fillStyle='#c8e52f';x.font=F(700,40);x.textAlign='right';x.fillText('טבלת היום',W-pad,y);y+=30;
+  const rr=(px,py,w,h,r)=>{x.beginPath();x.roundRect(px,py,w,h,r)};
+  rk.forEach((r,i)=>{
+    x.fillStyle='#141414';rr(pad,y,W-2*pad,rowH,40);x.fill();x.strokeStyle='#262626';x.lineWidth=2;x.stroke();
+    const cx=W-pad-70,cy=y+rowH/2,R=44;
+    x.save();x.beginPath();x.arc(cx,cy,R,0,7);x.clip();
+    const im=imgs[r.p.id];if(im){const s=Math.min(im.width,im.height);x.drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,cx-R,cy-R,2*R,2*R)}else{x.fillStyle='#2a2a2a';x.fillRect(cx-R,cy-R,2*R,2*R)}
+    x.restore();x.beginPath();x.arc(cx,cy,R,0,7);x.strokeStyle='#c8e52f';x.lineWidth=4;x.stroke();
+    x.textAlign='right';x.fillStyle='#fff';x.font=F(700,40);x.fillText(r.p.name,cx-R-22,cy+14);
+    x.textAlign='left';x.direction='ltr';x.fillStyle='#c8e52f';x.font=F(800,48);x.fillText(String(r.w),pad+34,cy+17);
+    x.fillStyle='#9a9a9a';x.font=F(500,32);x.fillText(r.w+'-'+r.l,pad+130,cy+12);
+    x.direction='rtl';
+    y+=rowH+14;
+  });
+  if(ms.length){
+    y+=30;x.textAlign='right';x.fillStyle='#c8e52f';x.font=F(700,40);x.fillText('תוצאות המשחקים',W-pad,y);y+=26;
+    ms.forEach(m=>{
+      x.fillStyle='#141414';rr(pad,y,W-2*pad,mrow,36);x.fill();x.strokeStyle='#262626';x.lineWidth=2;x.stroke();
+      const cy=y+mrow/2+12,aw=m.score_a>m.score_b;
+      x.textAlign='right';x.fillStyle=aw?'#c8e52f':'#fff';x.font=F(aw?700:500,32);x.fillText(fn(P(m.a1))+' + '+fn(P(m.a2)),W-pad-30,cy);
+      x.textAlign='left';x.fillStyle=aw?'#fff':'#c8e52f';x.font=F(aw?500:700,32);x.fillText(fn(P(m.b1))+' + '+fn(P(m.b2)),pad+30,cy);
+      x.textAlign='center';x.direction='ltr';x.fillStyle='#fff';x.font=F(800,44);x.fillText(m.score_b+' : '+m.score_a,W/2,cy+2);x.direction='rtl';
+      y+=mrow+12;
+    });
+  }
+  x.textAlign='center';x.fillStyle='#555';x.font=F(500,28);x.fillText('padel-pandel.vercel.app',W/2,H-50);
+  const blob=await new Promise(r=>c.toBlob(r,'image/png'));
+  const file=new File([blob],'padel-'+e.played_on+'.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file]});return}catch(er){if(er&&er.name==='AbortError')return}}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=file.name;document.body.appendChild(a);a.click();a.remove();toast('התמונה נשמרה');
+}
 function matchSheet(eid,m,preset){
   const pl=evPlayers(eid);if(pl.length<4){toast('צריך לפחות 4 שחקנים ביום המשחק. אפשר להוסיף בעריכה',1);return}
   S.mf={eid,id:m?m.id:null,sa:m?m.score_a:6,sb:m?m.score_b:0,stage:m?m.stage:'game'};
   const sel=(n,v)=>`<select id="${n}">${pl.map(p=>`<option value="${p.id}" ${v===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}</select>`;
   const v=m?[m.a1,m.a2,m.b1,m.b2]:(preset||[pl[0].id,pl[1].id,pl[2].id,pl[3].id]);
-  sheet(`<h3>${m?'עריכת תוצאה':'תוצאה חדשה'}</h3>
-   <div class="tb"><div><h4>זוג א׳</h4>${sel('a1',v[0])}${sel('a2',v[1])}</div><div><h4>זוג ב׳</h4>${sel('b1',v[2])}${sel('b2',v[3])}</div></div>
-   <div class="tb" style="margin-top:12px"><div class="sc"><button data-act="sc" data-k="sa" data-d="1">${ic('plus',20)}</button><output id="osa">${S.mf.sa}</output><button data-act="sc" data-k="sa" data-d="-1">${ic('minus',20)}</button></div><div class="sc"><button data-act="sc" data-k="sb" data-d="1">${ic('plus',20)}</button><output id="osb">${S.mf.sb}</output><button data-act="sc" data-k="sb" data-d="-1">${ic('minus',20)}</button></div></div>
+  const scb=(k,id,val)=>`<div class="sc"><button data-act="sc" data-k="${k}" data-d="1">${ic('plus',20)}</button><output id="${id}">${val}</output><button data-act="sc" data-k="${k}" data-d="-1">${ic('minus',20)}</button></div>`;
+  sheet(`<h3>${m?'עריכת תוצאה':'משחק חדש'}</h3>
+   <div class="pairbox"><h4>זוג 1</h4><div class="prow">${sel('a1',v[0])}${sel('a2',v[1])}</div>${scb('sa','osa',S.mf.sa)}</div>
+   <div class="vsdiv"><span></span><b>VS</b><span></span></div>
+   <div class="pairbox"><h4>זוג 2</h4><div class="prow">${sel('b1',v[2])}${sel('b2',v[3])}</div>${scb('sb','osb',S.mf.sb)}</div>
    <label class="lbl">סוג משחק</label><div class="chs">${Object.entries(STAGES).map(([k,t])=>`<button data-act="stage" data-k="${k}" class="${S.mf.stage===k?'on':''}">${t}</button>`).join('')}</div>
-   <div class="ctl">${B('שמור','data-act="savematch"')}${m?b(ic('trash',16)+'מחק',`data-act="delmatch" data-id="${m.id}"`,'red'):''}${b('ביטול','data-act="close"','ghost')}</div>`);
+   <div class="ctl">${B('שמור','data-act="savematch"')}${!m?b(ic('plus',16)+'שמור והוסף עוד','data-act="savematch" data-more="1"','ghost'):''}${m?b(ic('trash',16)+'מחק',`data-act="delmatch" data-id="${m.id}"`,'red'):''}${b('ביטול','data-act="close"','ghost')}</div>`);
 }
 function playerSheet(id){
   const p=P(id),st=stats(S.matches)[id]||{w:0,l:0};
@@ -490,13 +549,14 @@ const A={
       await loadAll();closeSheet();toast(S.editEv?'נשמר':'יום המשחק נפתח');location.hash='#/evening/'+id;route()}catch(e){toast(e.message,1)}},
   delev:async()=>{if(!confirm('למחוק את כל יום המשחק כולל המשחקים?'))return;
     try{await rpc('padel_delete_evening',{p_token:S.token,p_id:S.editEv});await loadAll();closeSheet();location.hash='#/evenings';route()}catch(e){toast(e.message,1)}},
+  shareimg:async d=>{try{toast('מכין תמונה...');await shareImage(d.id)}catch(e){toast('לא הצלחתי ליצור תמונה',1)}},
   addmatch:d=>{if(needLogin()){S.afterLogin=()=>matchSheet(d.id);return}matchSheet(d.id)},
   editmatch:d=>{const m=S.matches.find(x=>x.id===d.id);matchSheet(m.evening_id,m)},
   sc:d=>{S.mf[d.k]=Math.max(0,Math.min(99,S.mf[d.k]+ +d.d));$('#o'+d.k).textContent=S.mf[d.k]},
   stage:d=>{S.mf.stage=d.k;document.querySelectorAll('[data-act=stage]').forEach(x=>x.classList.toggle('on',x.dataset.k===d.k))},
-  savematch:async()=>{const f=S.mf;
+  savematch:async d=>{const f=S.mf,more=d&&d.more;
     try{await rpc('padel_save_match',{p_token:S.token,p_id:f.id,p_evening:f.eid,p_a1:$('#a1').value,p_a2:$('#a2').value,p_b1:$('#b1').value,p_b2:$('#b2').value,p_sa:f.sa,p_sb:f.sb,p_stage:f.stage});
-      await loadAll();closeSheet();toast('התוצאה נשמרה');route()}catch(e){toast(e.message,1)}},
+      await loadAll();closeSheet();toast('התוצאה נשמרה');route();if(more)setTimeout(()=>matchSheet(f.eid),250)}catch(e){toast(e.message,1)}},
   delmatch:async d=>{if(!confirm('למחוק את המשחק?'))return;
     try{await rpc('padel_delete_match',{p_token:S.token,p_id:d.id});await loadAll();closeSheet();route()}catch(e){toast(e.message,1)}},
   player:d=>playerSheet(d.id),
